@@ -11,5 +11,5 @@ def create_app():
 app = create_app()
 
 app.add_url_rule("/", view_func=routes.overview)
-app.add_url_rule("/services", view_func=routes.services)
+app.add_url_rule("/repos", view_func=routes.repos)
 app.add_url_rule("/open_pr", view_func=routes.open_pr)
