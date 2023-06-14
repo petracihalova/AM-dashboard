@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h1 class="mt-4">Services</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Repo</th>
+                <th scope="col">Link</th>
+                <th scope="col">Stage</th>
+                <th scope="col">Prod</th>
+                <th scope="col">Days without release</th>
+                <th scope="col">PRs waiting for prod release</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr onclick="toggleInfo(this)">
+                <td scope='row'>RBAC</td>
+                <td><a href="https://github.com/redhatinsights/insights-rbac" target="_blank">insights-rbac</a></td>
+                <td>commit: abc1234 05/06/2023<br>
+                    release method: auto</td>
+                <td>commit: zzz9999 01/06/2023<br>
+                    release method: manual</td>
+                <td>5</td>
+                <td>3</td>
+            </tr>
+            <tr class="hidden-info">
+                <td colspan="6" width="100%">
+                    <div>
+                        List of PRs merged on stage waiting for prod release:
+                        <ul>
+                            <li>
+                                <a href="https://github.com/RedHatInsights/insights-rbac/pull/863" ,
+                                    target="blank">PR#863</a>
+                                Support SSL when connecting to redis
+                            </li>
+                            <li>
+                                <a href="https://github.com/RedHatInsights/insights-rbac/pull/771" ,
+                                    target="blank">PR#771</a>
+                                OpenTelemetry instrumentation for RBAC
+                            </li>
+                        </ul>
+                    </div>
+
+                </td>
+            </tr>
+
+            <tr onclick="toggleInfo(this)">
+                <td scope='row'>Entitlements</td>
+                <td><a href="https://github.com/redhatinsights/entitlements-api-go"
+                        target="_blank">entitlements-api-go</a></td>
+                <td>commit: abc1234 05/06/2023<br>
+                    release method: auto</td>
+                <td>commit: abc1234 05/06/2023<br>
+                    release method: manual</td>
+                <td>50</td>
+                <td>0</td>
+            </tr>
+            <tr class="hidden-info">
+                <td colspan="6" width="100%">
+                    <div>
+                        List of PRs merged on stage waiting for prod release:<br>
+                    </div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

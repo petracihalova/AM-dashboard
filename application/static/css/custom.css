@@ -1,0 +1,7 @@
+.hidden-info {
+    display: none;
+  }
+
+  tr.hide-table-padding td {
+    padding: 0;
+    }
