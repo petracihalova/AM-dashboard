@@ -3,16 +3,34 @@
 {% block content %}
 
 
+
 <div class="container-fluid">
     <h1 class="mt-4">Open PRs</h1>
-    <p>lorem impsum bla bla bla</p>
-    <p>
-        bla bla bla 
-        <code>print("Hello World")</code>
-        another bla bla bla
-        <code>type("false")</code>
-        bla bla bla
+    {% include "includes/dropdown_names.html" %}
+
+    {% for pr_name, prs in gh_pr.items() %}
+    <p style="font-weight: bold;">
+        {{ pr_name.upper() }}
     </p>
+
+    {% if prs %}
+    
+    <ul id="pr_list">
+        {% for pr in prs %}
+        <li>
+            <a href="{{ pr.html_url }}" target="_blank">
+                PR#{{ pr.number }}
+            </a>
+            {{ pr.title }}
+            ({{ pr.user.login}})
+            from {{ pr.created_at}}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% endfor %}
+
 </div>
 
 {% endblock %}

@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h1 class="mt-4">Services</h1>
+    {% if not services %}
+    <h3>No data to display. </h3>
+    {% else %}
+
+    {% include "includes/dropdown_names.html" %}
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Repo</th>
+                <th scope="col">Link</th>
+                <th scope="col">Master/Main</th>
+                <th scope="col">Stage</th>
+                <th scope="col">Prod</th>
+                <th scope="col">Days without release</th>
+                <th scope="col">PRs waiting for prod release</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for repo in services %}
+
+            <tr onclick="toggleInfo(this)">
+                <td scope='row'>{{ repo.name }}</td>
+                <td><a href="{{ repo.link }}" target="_blank">{{ repo.link.split("/")[-1] }}</a></td>
+                <td>
+                    commit: <code>{{ repo.commit_master[:7] }}</code>
+                    <span id="{{ repo.id }}-commit-sha-master" hidden>{{ repo.commit_master }}</span>
+                    <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
+                        data-id="{{ repo.id }}"
+                        onclick='copyToClipboard(this.dataset.id + "-commit-sha-master")'>Copy</button>
+
+                    <br>
+                    branch name:
+                    {{ repo.main_branch }}
+                </td>
+                <td>
+                    commit: <code>{{ repo.commit_stage[:7] }}</code>
+                    <span id="{{ repo.id }}-commit-sha-stage" hidden>{{ repo.commit_stage }}</span>
+                    <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
+                        data-id="{{ repo.id }}"
+                        onclick='copyToClipboard(this.dataset.id + "-commit-sha-stage")'>Copy</button>
+                    <br>
+                    release method:
+                    {{ repo.release_stage_method }}
+                </td>
+                <td>
+                    commit: <code>{{ repo.commit_production[:7] }}</code>
+                    <span id="{{ repo.id }}-commit-sha-prod" hidden>{{ repo.commit_production }}</span>
+                    <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
+                        data-id="{{ repo.id }}"
+                        onclick='copyToClipboard(this.dataset.id + "-commit-sha-prod")'>Copy</button>
+                    <br>
+                    release method:
+                    {{ repo.release_production_method }}
+                </td>
+                <td>
+                    {{ repo.days_without_release }}
+                </td>
+                <td>
+                    {% if not repo.list_of_pr %}
+                    0
+                    {% else %}
+                    {{ repo.list_of_pr|count }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr class="hidden-info">
+                <td colspan="7" width="100%">
+                    <div style="padding-bottom: 20px;">
+                        Last Production Release:
+                        {{ repo.date_release_production }} -
+                        <a href="{{ repo.release_production_mr_url }}" , target="blank">MR link</a>
+                        - {{ repo.release_author }}
+                    </div>
+                    <div style="padding-bottom: 20px;">
+                        App Interface GitLab saas file folder
+                        <a href="https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/{{ repo.service_name }}"
+                            , target="blank">link</a>
+
+
+                    </div>
+                    <div style="padding-bottom: 20px;">
+                        Stage : Production DIFF<br>
+                        {% if repo.commit_stage[:7] != repo.commit_production[:7]%}
+                        <a href="{{ repo.link + '/compare/' + repo.commit_stage + '...' + repo.commit_production }}" ,
+                            target="blank">link</a>
+
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </div>
+                    <div>
+                        PRs merged on stage waiting for prod release:<br>
+                        {% if not repo.list_of_pr %}
+                        N/A
+                        {% else %}
+                        <ul id="pr_list">
+                            {% for pr in repo.list_of_pr %}
+                            <li>
+                                <a href="{{ pr.link }}" , target="blank">PR#{{ pr.link.split("/")[-1] }}</a>
+                                {{ pr.title }}
+                                ({{ pr.pr_author }})
+                                merged {{ pr.merge_date }}
+
+                                {% if pr.qe_status %}
+                                QE status: {{ pr.qe_status }}
+                                {% endif %}
+
+                                {% if pr.jira_tickets %}
+
+                                <ul>
+                                    {% for ticket in pr.jira_tickets %}
+                                    <li>
+                                        <a href="{{ ticket.link }}" , target="blank">{{ ticket.name }}</a>
+                                        {% endfor %}
+                                    </li>
+                                </ul>
+                                {% endif %}
+
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if repo.list_of_pr %}
+                        <a href="{{ url_for('release_notes', id=repo.id) }}">Generate the release notes</a>
+                        {% endif %}
+                    </div>
+
+
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+
+{% endblock %}

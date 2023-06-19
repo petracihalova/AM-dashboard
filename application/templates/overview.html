@@ -4,15 +4,96 @@
 
 
 <div class="container-fluid">
-    <h1 class="mt-4">Overview</h1>
-    <p>lorem impsum bla bla bla</p>
-    <p>
-        bla bla bla 
-        <code>print("Hello World")</code>
-        another bla bla bla
-        <code>type("false")</code>
-        bla bla bla
-    </p>
+    <h1 class="mt-4">Access & Management team repos:</h1>
+    <h3>GitHub</h3>
+
+    <table class="table table-hover">
+        <tbody>
+
+            {% for repo in github_data %}
+            <tr>
+                <td scope='row' style="width: 250px">{{repo.name.upper()}}</td>
+                <td>
+                    <a href="{{ repo.repo_link }}" target="_blank">
+                        GH
+                    </a>
+
+                    {% if repo.image_link %}
+                    {% if repo.image_link is string %}
+                    &bull;                    
+                    <a href="{{ repo.image_link }}" target="_blank">
+                        Quay
+                    </a>
+                    {% elif repo.image_link is iterable %}
+
+                    {% for link in repo.image_link %}
+                    &bull;                    
+                    <a href="{{ link }}" target="_blank">
+                        Quay-{{ link.split("/")[-1].split("?")[0] }}
+                    </a>
+
+                    {% endfor %}
+
+                    {% endif %}
+                    {% endif %}
+
+                    {% if repo.confluence_link %}
+                    &bull;
+                    <a href="{{ repo.confluence_link }}" target="_blank">
+                        Docs
+                    </a>
+                    {% endif %}
+
+                    {% if repo.app_interface_link %}
+                    &bull;
+                    <a href="{{ repo.app_interface_link }}" target="_blank">
+                        app-interface
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <h3>GitLab</h3>
+
+    <table class="table table-hover">
+        <tbody>
+
+            {% for repo in gitlab_data %}
+            <tr>
+                <td scope='row' style="width: 250px">{{repo.name.upper()}}</td>
+                <td>
+                    <a href="{{ repo.repo_link }}" target="_blank">
+                        GH
+                    </a>
+
+                    {% if repo.image_link %}
+                    &bull;
+                    <a href="{{ repo.image_link }}" target="_blank">
+                        Quay
+                    </a>
+                    {% endif %}
+
+                    {% if repo.confluence_link %}
+                    &bull;
+                    <a href="{{ repo.confluence_link }}" target="_blank">
+                        Docs
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+    <br>
+
 </div>
 
 {% endblock %}
