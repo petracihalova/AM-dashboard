@@ -74,10 +74,10 @@
             <tr class="hidden-info">
                 <td colspan="7" width="100%">
                     <div style="padding-bottom: 20px;">
-                        Last Production Release:
-                        {{ repo.date_release_production }} -
-                        <a href="{{ repo.release_production_mr_url }}" , target="blank">MR link</a>
-                        - {{ repo.release_author }}
+                        Last Production Release: <br>
+                        <a href="{{ repo.release_production_mr_url }}" , target="blank">MR#{{ repo.release_production_mr_url.split("/")[-1] }}</a>
+                        merged on {{ repo.date_release_production }}
+                        by {{ repo.release_author }}
                     </div>
                     <div style="padding-bottom: 20px;">
                         App Interface GitLab saas file folder: <br>
