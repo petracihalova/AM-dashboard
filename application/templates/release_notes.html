@@ -12,16 +12,16 @@
         </h3>
         <ul>
             <li>
-                repo: <a href="{{ data.link }}" target="_blank">{{ data.name }}</a>
+                Repo: <a href="{{ data.link }}" target="_blank">{{ data.name }}</a>
             </li>
             <li>
-                image: <a href="{{ additional_data.image_link }}" target="_blank">{{ additional_data.image_link.split("/")[-1].split("?")[0] }}</a>
+                Image: <a href="{{ additional_data.image_link }}" target="_blank">{{ additional_data.image_link.split("/")[-1].split("?")[0] }}</a>
             </li>
             <li>
-                docs: <a href="{{ additional_data.confluence_link }}" target="_blank">Confluence A&M docs</a>
+                Docs: <a href="{{ additional_data.confluence_link }}" target="_blank">Confluence A&M docs</a>
             </li>
             <li>
-                app-interface: <a href="{{ additional_data.app_interface_link }}" target="_blank">{{ additional_data.app_interface_link.split("/")[-1] }}</a>
+                App-interface: <a href="{{ additional_data.app_interface_link }}" target="_blank">{{ additional_data.app_interface_link.split("/")[-1] }}</a>
             </li>
         </ul>
     </div>
@@ -32,20 +32,20 @@
         <div>
             Last prod release:
             <a href="{{ data.release_production_mr_url }}">
-                MR
+                MR#{{ data.release_production_mr_url.split("/")[-1] }}
             </a> 
-            merged {{ data.date_release_production }} from {{ data.release_author }}<br>
+            merged on {{ data.date_release_production }} by {{ data.release_author }}<br>
 
             {% if data.commit_stage == data_commit_master %}
             last commit SHA on the {{ data.main_branch }} branch: {{ data.commit_master }}
             {% endif %}
             <div>
-                production commit: <code> {{ data.commit_production[:7] }} </code>
+                Production commit: <code> {{ data.commit_production[:7] }} </code>
                 <span id="commit-sha-production" hidden>{{ data.commit_production}}</span>
                 <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;" onclick="copyToClipboard('commit-sha-production')">Copy</button>
             </div>
             <div>
-                stage commit: <code> {{ data.commit_stage[:7] }} </code>
+                Stage commit: <code> {{ data.commit_stage[:7] }} </code>
                 <span id="commit-sha-stage" hidden>{{ data.commit_stage}}</span>
                 <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;" onclick="copyToClipboard('commit-sha-stage')">Copy</button>
             </div>

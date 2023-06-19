@@ -80,26 +80,26 @@
                         - {{ repo.release_author }}
                     </div>
                     <div style="padding-bottom: 20px;">
-                        App Interface GitLab saas file folder
+                        App Interface GitLab saas file folder: <br>
                         <a href="https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/{{ repo.service_name }}"
                             , target="blank">link</a>
 
 
                     </div>
                     <div style="padding-bottom: 20px;">
-                        Stage : Production DIFF<br>
+                        Stage / Production diff: <br>
                         {% if repo.commit_stage[:7] != repo.commit_production[:7]%}
-                        <a href="{{ repo.link + '/compare/' + repo.commit_stage + '...' + repo.commit_production }}" ,
+                        <a href="{{ repo.link + '/compare/' + repo.commit_production + '...' + repo.commit_stage }}" ,
                             target="blank">link</a>
 
                         {% else %}
-                        N/A
+                        <code>N/A</code>
                         {% endif %}
                     </div>
                     <div>
                         PRs merged on stage waiting for prod release:<br>
                         {% if not repo.list_of_pr %}
-                        N/A
+                        <code>N/A</code>
                         {% else %}
                         <ul id="pr_list">
                             {% for pr in repo.list_of_pr %}
