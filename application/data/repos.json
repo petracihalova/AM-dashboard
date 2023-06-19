@@ -5,42 +5,54 @@
             "repo_link": "https://github.com/redhatinsights/insights-rbac",
             "image_link": "https://quay.io/repository/cloudservices/rbac?tab=tags",
             "confluence_link": "https://docs.engineering.redhat.com/x/iK7vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/rbac"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/rbac",
+            "release_process_docs": "https://docs.google.com/document/d/10rUkgm20z8qdRFpD4mBw6GzO-JcyXbc91G6pfIiyaSw/edit#heading=h.z4fs506e8qjc",
+            "release_notes": "https://drive.google.com/drive/folders/1uIhFtKHsBPnslvc6yALLu-YBUCyc72CF?usp=sharing"
         },
         {
             "name": "rbac config",
             "repo_link": "https://github.com/redhatinsights/rbac-config",
             "image_link": "",
             "confluence_link": "https://docs.engineering.redhat.com/x/iK7vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/rbac"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/rbac",
+            "release_process_docs": "https://docs.google.com/document/d/17eKpT2MDzSJDS3lEL_QxaPwCTkM5VcQGVGL13Wt-2tg/edit?usp=sharing",
+            "release_notes": "https://drive.google.com/drive/folders/1TW_mXZm5R4fZdLJKErQnmHhA8arJ3p62?usp=sharing"
         },
         {
             "name": "rbac config actions",
             "repo_link": "https://github.com/redhatinsights/rbac-config-actions",
             "image_link": "",
             "confluence_link": "https://docs.engineering.redhat.com/x/iK7vFQ",
-            "app_interface_link": ""
+            "app_interface_link": "",
+            "release_process_docs": "",
+            "release_notes": ""
         },
         {
             "name": "gateway",
             "repo_link": "https://github.com/redhatinsights/insights-3scale",
             "image_link": "https://quay.io/repository/cloudservices/insights-3scale?tab=tags",
             "confluence_link": "https://docs.engineering.redhat.com/x/w67vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/gateway"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/gateway",
+            "release_process_docs": "",
+            "release_notes": "https://drive.google.com/drive/folders/1r3093FcReWf8XHCDv9h8xTtmvcPWPjtg?usp=sharing"
         },
         {
             "name": "cloudwatch aggregator",
             "repo_link": "https://github.com/redhatinsights/cloudwatch-aggregator",
             "image_link": "https://quay.io/repository/cloudservices/cloudwatch-aggregator?tab=tags",
             "confluence_link": "https://docs.engineering.redhat.com/x/uq7vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/gateway"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/gateway",
+            "release_process_docs": "",
+            "release_notes": "https://drive.google.com/drive/folders/1459AcevvolUZP8GRLey1ZJQ6L98uW5zX?usp=sharing"
         },
         {
             "name": "apicast test services",
             "repo_link": "https://github.com/redhatinsights/apicast-test-services",
             "image_link": "https://quay.io/repository/cloudservices/apicast-test-services?tab=tags",
             "confluence_link": "https://docs.engineering.redhat.com/x/I0VSFg",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/gateway"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/gateway",
+            "release_process_docs": "",
+            "release_notes": "https://drive.google.com/drive/folders/1RUbsp0Mrcs9_QnOH5i-mmxp2b1_sxHqf"
         },
         {
             "name": "turnpike",
@@ -51,70 +63,90 @@
                 "https://quay.io/repository/cloudservices/turnpike-nginx-prometheus?tab=tags"
             ],
             "confluence_link": "https://docs.engineering.redhat.com/x/l67vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/turnpike"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/turnpike",
+            "release_process_docs": "https://docs.engineering.redhat.com/display/PLATFORMAM/Turnpike+Release+Process",
+            "release_notes": "https://drive.google.com/drive/folders/1H75UqHsKXb1TYHN4vBECBQ8P_hRUcgRI?usp=sharing"
         },
         {
             "name": "platform feedback",
             "repo_link": "https://github.com/redhatinsights/hermod",
             "image_link": "https://quay.io/repository/cloudservices/platform-feedback?tab=tags",
             "confluence_link": "https://docs.engineering.redhat.com/x/wK7vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/platform-feedback"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/platform-feedback", 
+            "release_process_docs": "",
+            "release_notes": "https://drive.google.com/drive/folders/1oyz_Q962AcjVs1_aOXaPnzgoWaDYMq_Q?usp=sharing"
         },
         {
             "name": "entitlements",
             "repo_link": "https://github.com/redhatinsights/entitlements",
             "image_link": "https://quay.io/repository/cloudservices/entitlements-api-go?tab=tags",
             "confluence_link": "https://docs.engineering.redhat.com/x/i67vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/entitlements"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/entitlements",
+            "release_process_docs": "",
+            "release_notes": "https://drive.google.com/drive/folders/1hIrGpUv2I4JD8VQlgGd-ncbK-RENRdr0?usp=sharing"
         },
         {
             "name": "entitlements config",
             "repo_link": "https://github.com/redhatinsights/entitlements-config",
             "image_link": "",
             "confluence_link": "https://docs.engineering.redhat.com/x/i67vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/entitlements"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/entitlements",
+            "release_process_docs": "",
+            "release_notes": ""
         },
         {
             "name": "uhc auth proxy",
             "repo_link": "https://github.com/redhatinsights/uhc-auth-proxy",
             "image_link": "https://quay.io/repository/cloudservices/uhc-auth-proxy?tab=tags",
             "confluence_link": "https://docs.engineering.redhat.com/x/ta7vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/uhc-auth-proxy"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/uhc-auth-proxy",
+            "release_process_docs": "",
+            "release_notes": "https://drive.google.com/drive/folders/1tvUxbFinNk_KxTvESlhbIND1AgpTR7zc?usp=sharing"
         },
         {
             "name": "sources",
             "repo_link": "https://github.com/redhatinsights/sources-api-go",
             "image_link": "https://quay.io/repository/cloudservices/sources-api-go?tab=tags",
             "confluence_link": "https://docs.engineering.redhat.com/x/p67vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/sources"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/sources",
+            "release_process_docs": "https://docs.engineering.redhat.com/display/PLATFORMAM/Sources+Release+Process",
+            "release_notes": "https://drive.google.com/drive/folders/1_f0Fpj7AKaKZvsb2W4mAxrt4ugyVCdwA?usp=sharing"
         },
         {
             "name": "sources satellite",
             "repo_link": "https://github.com/redhatinsights/sources-satellite",
             "image_link": "https://quay.io/repository/cloudservices/sources-satellite?tab=tags",
             "confluence_link": "https://docs.engineering.redhat.com/x/p67vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/sources"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/sources",
+            "release_process_docs": "https://docs.engineering.redhat.com/display/PLATFORMAM/Sources+Satellite+Release+Process",
+            "release_notes": "https://drive.google.com/drive/folders/1DgFZcsq9VM1zB_ZnYCPzL55t3EOeX0om?usp=sharing"
         },
         {
             "name": "sources superkey worker",
             "repo_link": "https://github.com/redhatinsights/sources-superkey-worker",
             "image_link": "https://quay.io/repository/cloudservices/sources-superkey-worker?tab=tags",
             "confluence_link": "https://docs.engineering.redhat.com/x/p67vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/sources"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/sources",
+            "release_process_docs": "https://docs.engineering.redhat.com/display/PLATFORMAM/Sources+Superkey+Worker+Release+Process",
+            "release_notes": "https://drive.google.com/drive/folders/1H2xxe2ePt7aXvvHQ0quJrsL89lmhErUo?usp=sharing"
         },
         {
             "name": "sources monitor",
             "repo_link": "https://github.com/redhatinsights/sources-monitor-go",
             "image_link": "https://quay.io/repository/cloudservices/sources-monitor-go?tab=tags",
             "confluence_link": "https://docs.engineering.redhat.com/x/p67vFQ",
-            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/sources"
+            "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/sources",
+            "release_process_docs": "https://docs.engineering.redhat.com/display/PLATFORMAM/Sources+Monitor+Release+Process",
+            "release_notes": "https://drive.google.com/drive/folders/1nf8wcJaTf6QS_59XYv_1MXCWuoWhh4xo"
         },
         {
             "name": "mock bop",
             "repo_link": "https://github.com/RedHatInsights/mbop",
             "image_link": "",
             "confluence_link": "https://docs.engineering.redhat.com/x/jq7vFQ",
-            "app_interface_link": ""
+            "app_interface_link": "",
+            "release_process_docs": "",
+            "release_notes": ""
         }
     ],
     "gitlab_repos": [
@@ -122,13 +154,17 @@
             "name": "backoffice proxy",
             "repo_link": "https://gitlab.cee.redhat.com/insights-platform/backoffice-proxy",
             "image_link": "https://images.paas.redhat.com/repository/insights-services/backoffice-proxy?tab=tags",
-            "confluence_link": "https://docs.engineering.redhat.com/x/jq7vFQ"
+            "confluence_link": "https://docs.engineering.redhat.com/x/jq7vFQ",
+            "release_process_docs": "https://docs.google.com/document/d/1zYB7uVzCh3p5RkJu-E_6atnz0oN2GPoYfn69GwCS-Gk/edit",
+            "release_notes": "https://drive.google.com/drive/folders/1dO5SoI1CCpFjdh-ChbQgBnf5_4IVxXZ-?usp=sharing"
         },
         {
             "name": "backoffice proxy pipeline",
             "repo_link": "https://gitlab.cee.redhat.com/insights-platform/backoffice-proxy-pipeline",
             "image_link": "",
-            "confluence_link": "https://docs.engineering.redhat.com/x/jq7vFQ"
+            "confluence_link": "https://docs.engineering.redhat.com/x/jq7vFQ",
+            "release_process_docs": "",
+            "release_notes": ""
         }
     ]
 }

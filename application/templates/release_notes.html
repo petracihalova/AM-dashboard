@@ -12,16 +12,28 @@
         </h3>
         <ul>
             <li>
-                Repo: <a href="{{ data.link }}" target="_blank">{{ data.name }}</a>
+                Repo: <a href="{{ data.link }}" target="_blank">{{ data.link.split("/")[-1] }}</a>
             </li>
             <li>
                 Image: <a href="{{ additional_data.image_link }}" target="_blank">{{ additional_data.image_link.split("/")[-1].split("?")[0] }}</a>
             </li>
             <li>
-                Docs: <a href="{{ additional_data.confluence_link }}" target="_blank">Confluence A&M docs</a>
+                Docs: <a href="{{ additional_data.confluence_link }}" target="_blank">confluence A&M</a>
             </li>
             <li>
-                App-interface: <a href="{{ additional_data.app_interface_link }}" target="_blank">{{ additional_data.app_interface_link.split("/")[-1] }}</a>
+                App-interface: <a href="{{ additional_data.app_interface_link }}" target="_blank">{{ "/".join(additional_data.app_interface_link.split("/")[-4:]) }}</a>
+            </li>
+            <li>
+                Release docs: 
+                <a href="https://docs.engineering.redhat.com/x/XbDvFQ" target="_blank">dashboard</a>
+                {% if additional_data.release_process_docs %}
+                &bull;
+                <a href="{{ additional_data.release_process_docs }}" target="_blank"> docs for {{ data.name}}</a>
+                {% endif %}
+                {% if additional_data.release_notes %}
+                &bull;
+                <a href="{{ additional_data.release_notes }}" target="_blank">notes (G drive)</a>
+                {% endif %}
             </li>
         </ul>
     </div>
