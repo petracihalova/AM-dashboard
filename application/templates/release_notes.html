@@ -58,15 +58,58 @@
             </div>
             {% endif %}
 
+            Days without release: {{ data.days_without_release }} <br>
+            PRs waiting for prod release: {{ data.list_of_pr|count }} <br>
+            All PRs with QE status "passed" or "N/A": 
+            {% if data.all_passed %}
+            <span style="color: darkgreen;">Yes</span> 
+            {% else %}
+            <span style="color: crimson;">No</span> 
+            {% endif %}
+
         </div>
     </div>
     <div>
-        <h3>sss</h3>
+        <h3>Scope / Status: </h3>
+        <p>PRs and related Jiras in scope with QE status.</p>
         <div>
-            
+            <ul id="pr_list">
+                {% for pr in data.list_of_pr %}
+                <li>
+                    <a href="{{ pr.link }}" , target="blank">PR#{{ pr.link.split("/")[-1] }}</a>
+                    {{ pr.title }}
+                    ({{ pr.pr_author }})
+                    merged {{ pr.merge_date }}
+
+                    {% if pr.jira_tickets %}
+
+                    <ul>
+                        {% for ticket in pr.jira_tickets %}
+                        <li>
+                            <a href="{{ ticket.link }}" , target="blank">{{ ticket.name }}</a>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                    {% endif %}
+
+                    <ul>
+                        <li>
+                            QE status: 
+                            {% if pr.qe_status %}
+                                {{ pr.qe_status }}
+                                {% if pr.qe_note %}
+                                    : {{ pr.qe_note}}
+                                {% endif %}
+                                ({{ pr.qe_author }})
+                            {% endif %}
+                        </li>
+                    </ul>
+
+                </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
-    {{ data }}
 </div>
 
 
