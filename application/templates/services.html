@@ -140,7 +140,9 @@
                     </div>
                     <div>
                         {% if repo.list_of_pr %}
-                        <a href="{{ url_for('release_notes', id=repo.id) }}">Generate the release notes</a>
+                        <form action="{{ url_for('release_notes', id=repo.id) }}" method="get">
+                            <button type="submit" class="btn btn-outline-primary">Generate the release notes</button>
+                          </form>
                         {% endif %}
                     </div>
 
