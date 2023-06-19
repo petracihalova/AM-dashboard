@@ -109,10 +109,6 @@
                                 ({{ pr.pr_author }})
                                 merged {{ pr.merge_date }}
 
-                                {% if pr.qe_status %}
-                                QE status: {{ pr.qe_status }}
-                                {% endif %}
-
                                 {% if pr.jira_tickets %}
 
                                 <ul>
@@ -123,6 +119,19 @@
                                     </li>
                                 </ul>
                                 {% endif %}
+
+                                <ul>
+                                    <li>
+                                        QE status: 
+                                        {% if pr.qe_status %}
+                                            {{ pr.qe_status }}
+                                            {% if pr.qe_note %}
+                                                : {{ pr.qe_note}}
+                                            {% endif %}
+                                            ({{ pr.qe_author }})
+                                        {% endif %}
+                                    </li>
+                                </ul>
 
                             </li>
                             {% endfor %}
