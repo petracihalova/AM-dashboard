@@ -55,6 +55,19 @@ function copyToClipboard(elementId) {
 
   navigator.clipboard.writeText(commitShaText)
     .catch(function(error) {
-      console.error("Chyba při kopírování textu:", error);
+      console.error("Error:", error);
     });
 }
+
+var toggleButton = document.getElementById("sidebarToggle");
+var menuVisible = false;
+
+toggleButton.addEventListener("click", function() {
+  if (menuVisible) {
+    toggleButton.textContent = "Hide menu";
+  } else {
+    toggleButton.textContent = "Show menu";
+  }
+
+  menuVisible = !menuVisible;
+});

@@ -6,7 +6,10 @@
 
 <div class="container-fluid">
     <h1 class="mt-4">Open PRs</h1>
+    <br>
     {% include "includes/dropdown_names.html" %}
+    <br>
+    <br>
 
     {% for pr_name, prs in gh_pr.items() %}
     <p style="font-weight: bold;">

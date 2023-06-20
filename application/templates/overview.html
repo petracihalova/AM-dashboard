@@ -2,97 +2,98 @@
 
 {% block content %}
 
-
 <div class="container-fluid">
     <h1 class="mt-4">Access & Management team repos:</h1>
     <h3>GitHub</h3>
+    <div class="row">
+        {% for repo in github_data %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">{{repo.name.upper()}}</div>
+            <div class="card-body">
 
-    <table class="table table-hover">
-        <tbody>
+                <a href="{{ repo.repo_link }}" target="_blank" class="card-link">
+                    GH link
+                </a>
+                <br>
 
-            {% for repo in github_data %}
-            <tr>
-                <td scope='row' style="width: 250px">{{repo.name.upper()}}</td>
-                <td>
-                    <a href="{{ repo.repo_link }}" target="_blank">
-                        GH
-                    </a>
+                {% if repo.image_link %}
 
-                    {% if repo.image_link %}
-                    {% if repo.image_link is string %}
-                    &bull;                    
-                    <a href="{{ repo.image_link }}" target="_blank">
-                        Quay
-                    </a>
-                    {% elif repo.image_link is iterable %}
+                {% if repo.image_link is string %}
+                <a href="{{ repo.image_link }}" target="_blank" class="card-link">
+                    Quay link
+                </a>
+                <br>
+                
+                {% elif repo.image_link is iterable %}
 
-                    {% for link in repo.image_link %}
-                    &bull;                    
-                    <a href="{{ link }}" target="_blank">
-                        Quay-{{ link.split("/")[-1].split("?")[0] }}
-                    </a>
+                {% for link in repo.image_link %}
+                <a href="{{ link }}" target="_blank">
+                    Quay-{{ link.split("/")[-1].split("?")[0].split("-")[-1] }}
+                </a>
+                &nbsp;
 
-                    {% endfor %}
+                {% endfor %}
+                <br>
 
-                    {% endif %}
-                    {% endif %}
+                {% endif %}
+                {% endif %}
 
-                    {% if repo.confluence_link %}
-                    &bull;
-                    <a href="{{ repo.confluence_link }}" target="_blank">
-                        Docs
-                    </a>
-                    {% endif %}
 
-                    {% if repo.app_interface_link %}
-                    &bull;
-                    <a href="{{ repo.app_interface_link }}" target="_blank">
-                        app-interface
-                    </a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
+                {% if repo.confluence_link %}
+                <a href="{{ repo.confluence_link }}" target="_blank" class="card-link">
+                    Docs
+                </a>
+                <br>
+                
+                {% endif %}
 
-        </tbody>
-    </table>
+                {% if repo.app_interface_link %}
+                <a href="{{ repo.app_interface_link }}" target="_blank" class="card-link">
+                    app-interface
+                </a>
+                {% endif %}
+            </div>
+
+
+        </div>
+        {% endfor %}
+    </div>
 
     <h3>GitLab</h3>
+    <div class="row">
+        {% for repo in gitlab_data %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">{{repo.name.upper()}}</div>
+            <div class="card-body">
 
-    <table class="table table-hover">
-        <tbody>
+                <a href="{{ repo.repo_link }}" target="_blank" class="card-link">
+                    GH link
+                </a>
+                <br>
 
-            {% for repo in gitlab_data %}
-            <tr>
-                <td scope='row' style="width: 250px">{{repo.name.upper()}}</td>
-                <td>
-                    <a href="{{ repo.repo_link }}" target="_blank">
-                        GH
-                    </a>
+                {% if repo.image_link %}
 
-                    {% if repo.image_link %}
-                    &bull;
-                    <a href="{{ repo.image_link }}" target="_blank">
-                        Quay
-                    </a>
-                    {% endif %}
+                <a href="{{ repo.image_link }}" target="_blank" class="card-link">
+                    Quay link
+                </a>
+                <br>
 
-                    {% if repo.confluence_link %}
-                    &bull;
-                    <a href="{{ repo.confluence_link }}" target="_blank">
-                        Docs
-                    </a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
+                {% endif %}
 
-        </tbody>
-    </table>
 
-    <br>
-    <br>
-    <br>
+                {% if repo.confluence_link %}
+                <a href="{{ repo.confluence_link }}" target="_blank" class="card-link">
+                    Docs
+                </a>
+                <br>
+                
+                {% endif %}
+            </div>
+
+
+        </div>
+        {% endfor %}
+    </div>
 
 </div>
 

@@ -11,4 +11,16 @@ tr.hide-table-padding td {
   font-weight: bold;
 
 }
-  
+
+.card-equal-height {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-equal-height .card-body {
+  flex-grow: 1;
+}
+
+.card {
+  margin: 10px;
+}

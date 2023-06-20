@@ -40,3 +40,4 @@ class Repo:
     release_committer: str = ""
     all_passed: bool = False
     list_of_pr: List[PR] = field(default_factory=list)
+    list_of_pr_master_stage: List[PR] = field(default_factory=list)
