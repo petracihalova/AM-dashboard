@@ -5,6 +5,7 @@ import os
 import json
 
 from utils import load_json_from_file
+from github_api import get_open_pull_requests
 
 
 def overview():
@@ -42,8 +43,13 @@ def services():
     return render_template("services.html", index=True, services=services_list, authors=authors)
 
 def open_pr():
-    with open("application/data/pull_requests.json", mode="r", encoding="utf-8") as file:
-        gh_pull_requests = json.load(file)
+    try:
+        with open("application/data/pull_requests.json", mode="r", encoding="utf-8") as file:
+            gh_pull_requests = json.load(file)
+    except FileNotFoundError:
+        get_open_pull_requests()
+        with open("application/data/pull_requests.json", mode="r", encoding="utf-8") as file:
+            gh_pull_requests = json.load(file)
 
     authors = set()
     for _, pr_list in gh_pull_requests.items():
