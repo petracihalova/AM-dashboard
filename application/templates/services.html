@@ -75,20 +75,31 @@
                     {% endif %}
                 </td>
                 <td>
-                    <a href="{{ repo.stage_build_link }}" target="_blank"> {% if repo.stage_build_status %}
-                    Passing{% else %}
-                    Failing{% endif %}&nbsp;Stage</a>
-<br />
-                       <a href="{{ repo.production_build_link }}" target="_blank"> {% if repo.production_build_status %}
-                    Passing{% else %}
-                    Failing{% endif %}&nbsp;Production</a>
+                    {% if repo.stage_build_link %}
+                    <a href="{{ repo.stage_build_link }}" target="_blank">
+                        {% if repo.stage_build_status %}
+                        Passing
+                        {% else %}
+                        Failing
+                        {% endif %}
+                        &nbsp;Stage
+                    </a>
+                    {% endif %}
+                    <br />
+                    {% if repo.production_build_link %}
+                    <a href="{{ repo.production_build_link }}" target="_blank"> 
+                        {% if repo.production_build_status%}
+                        Passing{% else %}
+                        Failing{% endif %}&nbsp;Production</a>
+                        {% endif %}
                 </td>
             </tr>
             <tr class="hidden-info">
                 <td colspan="8" width="100%">
                     <div style="padding-bottom: 20px;">
                         Last Production Release: <br>
-                        <a href="{{ repo.release_production_mr_url }}" , target="blank">MR#{{ repo.release_production_mr_url.split("/")[-1] }}</a>
+                        <a href="{{ repo.release_production_mr_url }}" , target="blank">MR#{{
+                            repo.release_production_mr_url.split("/")[-1] }}</a>
                         merged on <strong>{{ repo.date_release_production }}</strong>
                         by <strong>{{ repo.release_author }}</strong>
                     </div>
@@ -133,7 +144,7 @@
                             <li>
                                 <a href="{{ pr.link }}" , target="blank">PR#{{ pr.link.split("/")[-1] }}</a>
                                 {{ pr.title }}
-                                 <strong>({{ pr.pr_author }}) </strong>
+                                <strong>({{ pr.pr_author }}) </strong>
                                 merged <strong>{{ pr.merge_date }}</strong>
 
                                 {% if pr.jira_tickets %}
@@ -149,13 +160,13 @@
 
                                 <ul>
                                     <li>
-                                        QE status: 
+                                        QE status:
                                         {% if pr.qe_status %}
-                                            {{ pr.qe_status }}
-                                            {% if pr.qe_note %}
-                                                : {{ pr.qe_note}}
-                                            {% endif %}
-                                             <strong>({{ pr.qe_author }}) </strong>
+                                        {{ pr.qe_status }}
+                                        {% if pr.qe_note %}
+                                        : {{ pr.qe_note}}
+                                        {% endif %}
+                                        <strong>({{ pr.qe_author }}) </strong>
                                         {% endif %}
                                     </li>
                                 </ul>
@@ -169,7 +180,7 @@
                         {% if repo.list_of_pr %}
                         <form action="{{ url_for('release_notes', id=repo.id) }}" method="get">
                             <button type="submit" class="btn btn-outline-primary">Generate the release notes</button>
-                          </form>
+                        </form>
                         {% endif %}
                     </div>
 
