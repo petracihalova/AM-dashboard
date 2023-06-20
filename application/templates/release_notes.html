@@ -75,13 +75,13 @@
             </div>
             {% endif %}
 
-            Days without release: {{ data.days_without_release }} <br>
-            PRs waiting for prod release: {{ data.list_of_pr|count }} <br>
+            Days without release: <span style="font-weight: bold;">{{ data.days_without_release }}</span> <br>
+            PRs waiting for prod release: <span style="font-weight: bold;">{{ data.list_of_pr|count }}</span>  <br>
             All PRs with QE status "passed" or "N/A":
             {% if data.all_passed %}
-            <span style="color: darkgreen;">Yes</span>
+            <span style="color: darkgreen; font-weight: bold;">Yes</span>
             {% else %}
-            <span style="color: crimson;">No</span>
+            <span style="color: crimson; font-weight: bold;">No</span>
             {% endif %}
 
         </div>

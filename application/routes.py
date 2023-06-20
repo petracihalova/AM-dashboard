@@ -1,11 +1,11 @@
 from flask import render_template
 import requests
-from models import Repo
 import os
 import json
 
 from utils import load_json_from_file
 from github_api import get_open_pull_requests
+from models import Repo
 
 
 def overview():
