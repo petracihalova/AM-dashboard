@@ -48,7 +48,7 @@
             <a href="{{ data.release_production_mr_url }}">
                 MR#{{ data.release_production_mr_url.split("/")[-1] }}
             </a>
-            merged on {{ data.date_release_production }} by {{ data.release_author }}<br>
+            merged on <strong>{{ data.date_release_production }}</strong> by <strong>{{ data.release_author }}</strong><br>
 
             {% if data.commit_stage == data_commit_master %}
             last commit SHA on the {{ data.main_branch }} branch: {{ data.commit_master }}
@@ -95,8 +95,8 @@
                 <li>
                     <a href="{{ pr.link }}" , target="blank">PR#{{ pr.link.split("/")[-1] }}</a>
                     {{ pr.title }}
-                    ({{ pr.pr_author }})
-                    merged {{ pr.merge_date }}
+                    <strong>({{ pr.pr_author }})</strong>
+                    merged <strong>{{ pr.merge_date }}</strong>
 
                     {% if pr.jira_tickets %}
 
@@ -117,7 +117,7 @@
                             {% if pr.qe_note %}
                             : {{ pr.qe_note}}
                             {% endif %}
-                            ({{ pr.qe_author }})
+                             <strong>({{ pr.qe_author }})</strong>
                             {% endif %}
                         </li>
                     </ul>

@@ -23,6 +23,7 @@
                 <th scope="col">Prod</th>
                 <th scope="col">Days without release</th>
                 <th scope="col">PRs waiting for prod release</th>
+                <th scope="col">QE</th>
             </tr>
         </thead>
         <tbody>
@@ -73,14 +74,23 @@
                     {{ repo.list_of_pr|count }}
                     {% endif %}
                 </td>
+                <td>
+                    <a href="{{ repo.stage_build_link }}" target="_blank"> {% if repo.stage_build_status %}
+                    Passing{% else %}
+                    Failing{% endif %}&nbsp;Stage</a>
+<br />
+                       <a href="{{ repo.production_build_link }}" target="_blank"> {% if repo.production_build_status %}
+                    Passing{% else %}
+                    Failing{% endif %}&nbsp;Production</a>
+                </td>
             </tr>
             <tr class="hidden-info">
-                <td colspan="7" width="100%">
+                <td colspan="8" width="100%">
                     <div style="padding-bottom: 20px;">
                         Last Production Release: <br>
                         <a href="{{ repo.release_production_mr_url }}" , target="blank">MR#{{ repo.release_production_mr_url.split("/")[-1] }}</a>
-                        merged on {{ repo.date_release_production }}
-                        by {{ repo.release_author }}
+                        merged on <strong>{{ repo.date_release_production }}</strong>
+                        by <strong>{{ repo.release_author }}</strong>
                     </div>
                     <div style="padding-bottom: 20px;">
                         App Interface GitLab saas file folder: <br>
@@ -109,8 +119,8 @@
                             <li>
                                 <a href="{{ pr.link }}" , target="blank">PR#{{ pr.link.split("/")[-1] }}</a>
                                 {{ pr.title }}
-                                ({{ pr.pr_author }})
-                                merged {{ pr.merge_date }}
+                                 <strong>({{ pr.pr_author }}) </strong>
+                                merged <strong>{{ pr.merge_date }}</strong>
 
                                 {% if pr.jira_tickets %}
 
@@ -131,7 +141,7 @@
                                             {% if pr.qe_note %}
                                                 : {{ pr.qe_note}}
                                             {% endif %}
-                                            ({{ pr.qe_author }})
+                                             <strong>({{ pr.qe_author }}) </strong>
                                         {% endif %}
                                     </li>
                                 </ul>
