@@ -89,8 +89,8 @@
                     <div style="padding-bottom: 20px;">
                         Last Production Release: <br>
                         <a href="{{ repo.release_production_mr_url }}" , target="blank">MR#{{ repo.release_production_mr_url.split("/")[-1] }}</a>
-                        merged on {{ repo.date_release_production }}
-                        by {{ repo.release_author }}
+                        merged on <strong>{{ repo.date_release_production }}</strong>
+                        by <strong>{{ repo.release_author }}</strong>
                     </div>
                     <div style="padding-bottom: 20px;">
                         App Interface GitLab saas file folder: <br>
@@ -119,8 +119,8 @@
                             <li>
                                 <a href="{{ pr.link }}" , target="blank">PR#{{ pr.link.split("/")[-1] }}</a>
                                 {{ pr.title }}
-                                ({{ pr.pr_author }})
-                                merged {{ pr.merge_date }}
+                                 <strong>({{ pr.pr_author }}) </strong>
+                                merged <strong>{{ pr.merge_date }}</strong>
 
                                 {% if pr.jira_tickets %}
 
@@ -141,7 +141,7 @@
                                             {% if pr.qe_note %}
                                                 : {{ pr.qe_note}}
                                             {% endif %}
-                                            ({{ pr.qe_author }})
+                                             <strong>({{ pr.qe_author }}) </strong>
                                         {% endif %}
                                     </li>
                                 </ul>
