@@ -41,3 +41,7 @@ class Repo:
     all_passed: bool = False
     list_of_pr: List[PR] = field(default_factory=list)
     list_of_pr_master_stage: List[PR] = field(default_factory=list)
+    stage_build_status: bool = False
+    production_build_status: bool = False
+    stage_build_link: str = ""
+    production_build_link: str = ""
