@@ -34,34 +34,39 @@
                 <td scope='row'>{{ repo.name }}</td>
                 <td><a href="{{ repo.link }}" target="_blank">{{ repo.link.split("/")[-1] }}</a></td>
                 <td>
-                    commit: <code>{{ repo.commit_master[:7] }}</code>
-                    <span id="{{ repo.id }}-commit-sha-master" hidden>{{ repo.commit_master }}</span>
-                    <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                        data-id="{{ repo.id }}"
-                        onclick='copyToClipboard(this.dataset.id + "-commit-sha-master")'>Copy</button>
-
-                    <br>
+                    <div style="white-space: nowrap;">
+                        commit: <code>{{ repo.commit_master[:7] }}</code>
+                        <span id="{{ repo.id }}-commit-sha-master" hidden>{{ repo.commit_master }}</span>
+                        <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
+                            data-id="{{ repo.id }}"
+                            onclick='copyToClipboard(this.dataset.id + "-commit-sha-master")'>Copy</button>
+                    </div>
                     branch name:
                     {{ repo.main_branch }}
                 </td>
                 <td>
-                    commit: <code>{{ repo.commit_stage[:7] }}</code>
-                    <span id="{{ repo.id }}-commit-sha-stage" hidden>{{ repo.commit_stage }}</span>
-                    <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                        data-id="{{ repo.id }}"
-                        onclick='copyToClipboard(this.dataset.id + "-commit-sha-stage")'>Copy</button>
-                    <br>
-                    release method:
+                    <div style="white-space: nowrap;">
+                        commit: <code>{{ repo.commit_stage[:7] }}</code>
+                        <span id="{{ repo.id }}-commit-sha-stage" hidden>{{ repo.commit_stage }}</span>
+                        <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
+                            data-id="{{ repo.id }}"
+                            onclick='copyToClipboard(this.dataset.id + "-commit-sha-stage")'>Copy</button>
+                    </div>
+                    
+
+                    method:
                     {{ repo.release_stage_method }}
                 </td>
                 <td>
-                    commit: <code>{{ repo.commit_production[:7] }}</code>
-                    <span id="{{ repo.id }}-commit-sha-prod" hidden>{{ repo.commit_production }}</span>
-                    <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                        data-id="{{ repo.id }}"
-                        onclick='copyToClipboard(this.dataset.id + "-commit-sha-prod")'>Copy</button>
-                    <br>
-                    release method:
+                    <div style="white-space: nowrap;">
+                        commit: <code>{{ repo.commit_production[:7] }}</code>
+                        <span id="{{ repo.id }}-commit-sha-prod" hidden>{{ repo.commit_production }}</span>
+                        <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
+                            data-id="{{ repo.id }}"
+                            onclick='copyToClipboard(this.dataset.id + "-commit-sha-prod")'>Copy</button>
+                    </div>
+                    
+                    method:
                     {{ repo.release_production_method }}
                 </td>
                 <td>
@@ -86,12 +91,12 @@
                     {% endif %}
                     <br />
                     {% if repo.production_build_link %}
-                    <a href="{{ repo.production_build_link }}" target="_blank"> 
+                    <a href="{{ repo.production_build_link }}" target="_blank">
                         {% if repo.production_build_status%}
                         Passing{% else %}
                         Failing{% endif %}&nbsp;Production
                     </a>
-                        {% endif %}
+                    {% endif %}
                 </td>
             </tr>
             <tr class="hidden-info">
