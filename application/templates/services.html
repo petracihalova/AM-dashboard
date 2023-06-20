@@ -184,12 +184,58 @@
                     <div>
                         {% if repo.list_of_pr %}
                         <form action="{{ url_for('release_notes', id=repo.id) }}" method="get">
-                            <button type="submit" class="btn btn-outline-primary">Generate the release notes</button>
+                            <button type="submit" class="btn btn-outline-primary">Generate prod release notes</button>
                         </form>
                         {% endif %}
                     </div>
+                    <br>
 
 
+                    {% if repo.list_of_pr_master_stage %}
+                    <div>
+                        PRs merged on {{ repo.main_branch }} waiting for stage release:<br>
+                        {% if not repo.list_of_pr_master_stage %}
+                        <code>N/A</code>
+                        {% else %}
+
+                        <ul id="pr_list">
+                            {% for pr in repo.list_of_pr_master_stage %}
+                            <li>
+                                <a href="{{ pr.link }}" , target="blank">PR#{{ pr.link.split("/")[-1] }}</a>
+                                {{ pr.title }}
+                                <strong>({{ pr.pr_author }}) </strong>
+                                merged <strong>{{ pr.merge_date }}</strong>
+
+                                {% if pr.jira_tickets %}
+
+                                <ul>
+                                    {% for ticket in pr.jira_tickets %}
+                                    <li>
+                                        <a href="{{ ticket.link }}" , target="blank">{{ ticket.name }}</a>
+                                        {% endfor %}
+                                    </li>
+                                </ul>
+                                {% endif %}
+
+                                <ul>
+                                    <li>
+                                        QE status:
+                                        {% if pr.qe_status %}
+                                        {{ pr.qe_status }}
+                                        {% if pr.qe_note %}
+                                        : {{ pr.qe_note}}
+                                        {% endif %}
+                                        <strong>({{ pr.qe_author }}) </strong>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    {% endif %}
                 </td>
             </tr>
 
