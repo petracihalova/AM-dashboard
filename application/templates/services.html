@@ -110,10 +110,24 @@
                         {% endif %}
                     </div>
                     <div>
+                        {% if repo.list_of_pr %}
+
+                        All PRs with QE status "passed" or "N/A":
+                        {% if repo.all_passed %}
+                        <span style="color: darkgreen; font-weight: bold;">Yes</span>
+                        {% else %}
+                        <span style="color: crimson; font-weight: bold;">No</span>
+                        {% endif %}
+                        <br>
+                        <br>
+                        {% endif %}
+                    </div>
+                    <div>
                         PRs merged on stage waiting for prod release:<br>
                         {% if not repo.list_of_pr %}
                         <code>N/A</code>
                         {% else %}
+
                         <ul id="pr_list">
                             {% for pr in repo.list_of_pr %}
                             <li>
