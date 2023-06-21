@@ -1,0 +1,82 @@
+<tr onclick="toggleInfo(this)">
+    <td scope='row'>{{ repo.name }}</td>
+    <td><a href="{{ repo.link }}" target="_blank">{{ repo.link.split("/")[-1] }}</a></td>
+    <td>
+        <div style="white-space: nowrap;">
+            commit: <code>{{ repo.commit_master[:7] }}</code>
+            <span id="{{ repo.id }}-commit-sha-master" hidden>{{ repo.commit_master }}</span>
+            <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
+                data-id="{{ repo.id }}"
+                onclick='copyToClipboard(this.dataset.id + "-commit-sha-master")'>Copy</button>
+        </div>
+        branch name:
+        {{ repo.main_branch }}
+    </td>
+    <td>
+        <div style="white-space: nowrap;">
+            commit: <code>{{ repo.commit_stage[:7] }}</code>
+            <span id="{{ repo.id }}-commit-sha-stage" hidden>{{ repo.commit_stage }}</span>
+            <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
+                data-id="{{ repo.id }}"
+                onclick='copyToClipboard(this.dataset.id + "-commit-sha-stage")'>Copy</button>
+        </div>
+        
+
+        method:
+        {{ repo.release_stage_method }}
+    </td>
+    <td>
+        <div style="white-space: nowrap;">
+            commit: <code>{{ repo.commit_production[:7] }}</code>
+            <span id="{{ repo.id }}-commit-sha-prod" hidden>{{ repo.commit_production }}</span>
+            <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
+                data-id="{{ repo.id }}"
+                onclick='copyToClipboard(this.dataset.id + "-commit-sha-prod")'>Copy</button>
+        </div>
+        
+        method:
+        {{ repo.release_production_method }}
+    </td>
+    <td>
+        <div style="white-space: nowrap;">
+            Days without prod release: <strong>{{ repo.days_without_release }}</strong> 
+        </div>
+        <div style="white-space: nowrap;">
+            PRs waiting for prod release:
+            {% if not repo.list_of_pr %}
+            <strong>0</strong>
+            {% else %}
+            <strong>{{ repo.list_of_pr|count }}</strong>
+            {% endif %}
+        </div>
+        {% if repo.release_stage_method == "manual" %}
+        <div style="white-space: nowrap;">
+            PRs waiting for stage release:
+            {% if not repo.list_of_pr_master_stage %}
+            <strong>0</strong>
+            {% else %}
+            <strong>{{ repo.list_of_pr_master_stage|count }}</strong> 
+            {% endif %}
+        </div>
+        {% endif %}
+    </td>
+    <td>
+        {% if repo.stage_build_link %}
+        <a href="{{ repo.stage_build_link }}" target="_blank">
+            {% if repo.stage_build_status %}
+            Passing
+            {% else %}
+            Failing
+            {% endif %}&nbsp;Stage
+        </a>
+        {% endif %}
+        <br />
+        {% if repo.production_build_link %}
+        <a href="{{ repo.production_build_link }}" target="_blank">
+            {% if repo.production_build_status%}
+            Passing{% else %}
+            Failing{% endif %}&nbsp;Production
+        </a>
+        {% endif %}
+    </td>
+</tr>

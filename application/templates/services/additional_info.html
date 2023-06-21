@@ -1,0 +1,139 @@
+<tr class="hidden-info">
+    <td colspan="7" width="100%">
+        <div style="padding-bottom: 20px;">
+            Last Production Release: <br>
+            <a href="{{ repo.release_production_mr_url }}" , target="blank">MR#{{
+                repo.release_production_mr_url.split("/")[-1] }}</a>
+            merged on <strong>{{ repo.date_release_production }}</strong>
+            by <strong>{{ repo.release_author }}</strong>
+        </div>
+        <div style="padding-bottom: 20px;">
+            App Interface GitLab saas file folder: <br>
+            <a href="https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/{{ repo.service_name }}"
+                , target="blank">link</a>
+
+
+        </div>
+        <div style="padding-bottom: 20px;">
+            Stage / Production diff: <br>
+            {% if repo.commit_stage[:7] != repo.commit_production[:7]%}
+            <a href="{{ repo.link + '/compare/' + repo.commit_production + '...' + repo.commit_stage }}" ,
+                target="blank">link</a>
+
+            {% else %}
+            <code>N/A</code>
+            {% endif %}
+        </div>
+        <div>
+            {% if repo.list_of_pr %}
+
+            All PRs with QE status "passed" or "N/A":
+            {% if repo.all_passed %}
+            <span style="color: darkgreen; font-weight: bold;">Yes</span>
+            {% else %}
+            <span style="color: crimson; font-weight: bold;">No</span>
+            {% endif %}
+            <br>
+            <br>
+            {% endif %}
+        </div>
+        <div>
+            PRs merged on stage waiting for prod release:<br>
+            {% if not repo.list_of_pr %}
+            <code>N/A</code>
+            {% else %}
+
+            <ul id="pr_list">
+                {% for pr in repo.list_of_pr %}
+                <li>
+                    <a href="{{ pr.link }}" , target="blank">PR#{{ pr.link.split("/")[-1] }}</a>
+                    {{ pr.title }}
+                    <strong>({{ pr.pr_author }}) </strong>
+                    merged <strong>{{ pr.merge_date }}</strong>
+
+                    {% if pr.jira_tickets %}
+
+                    <ul>
+                        {% for ticket in pr.jira_tickets %}
+                        <li>
+                            <a href="{{ ticket.link }}" , target="blank">{{ ticket.name }}</a>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                    {% endif %}
+
+                    <ul>
+                        <li>
+                            QE status:
+                            {% if pr.qe_status %}
+                            {{ pr.qe_status }}
+                            {% if pr.qe_note %}
+                            : {{ pr.qe_note}}
+                            {% endif %}
+                            <strong>({{ pr.qe_author }}) </strong>
+                            {% endif %}
+                        </li>
+                    </ul>
+
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div>
+            {% if repo.list_of_pr %}
+            <form action="{{ url_for('release_notes', id=repo.id) }}" method="get">
+                <button type="submit" class="btn btn-outline-primary">Generate prod release notes</button>
+            </form>
+            {% endif %}
+        </div>
+        <br>
+
+
+        {% if repo.list_of_pr_master_stage %}
+        <div>
+            PRs merged on {{ repo.main_branch }} waiting for stage release:<br>
+            {% if not repo.list_of_pr_master_stage %}
+            <code>N/A</code>
+            {% else %}
+
+            <ul id="pr_list">
+                {% for pr in repo.list_of_pr_master_stage %}
+                <li>
+                    <a href="{{ pr.link }}" , target="blank">PR#{{ pr.link.split("/")[-1] }}</a>
+                    {{ pr.title }}
+                    <strong>({{ pr.pr_author }}) </strong>
+                    merged <strong>{{ pr.merge_date }}</strong>
+
+                    {% if pr.jira_tickets %}
+
+                    <ul>
+                        {% for ticket in pr.jira_tickets %}
+                        <li>
+                            <a href="{{ ticket.link }}" , target="blank">{{ ticket.name }}</a>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                    {% endif %}
+
+                    <ul>
+                        <li>
+                            QE status:
+                            {% if pr.qe_status %}
+                            {{ pr.qe_status }}
+                            {% if pr.qe_note %}
+                            : {{ pr.qe_note}}
+                            {% endif %}
+                            <strong>({{ pr.qe_author }}) </strong>
+                            {% endif %}
+                        </li>
+                    </ul>
+
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {% endif %}
+    </td>
+</tr>
