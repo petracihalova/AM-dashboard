@@ -4,14 +4,14 @@ import routes
 
 
 def create_app():
-    app = Flask(__name__)
+    new_app = Flask(__name__)
 
-    app.add_url_rule("/", view_func=routes.overview)
-    app.add_url_rule("/services", view_func=routes.services)
-    app.add_url_rule("/open_pr", view_func=routes.open_pr)
-    app.add_url_rule("/release_notes/<id>", view_func=routes.release_notes)
+    new_app.add_url_rule("/", view_func=routes.overview)
+    new_app.add_url_rule("/services", view_func=routes.services)
+    new_app.add_url_rule("/open_pr", view_func=routes.open_pr)
+    new_app.add_url_rule("/release_notes/<id>", view_func=routes.release_notes)
 
-    return app
+    return new_app
 
 
 app = create_app()
