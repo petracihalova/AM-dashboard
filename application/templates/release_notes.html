@@ -16,14 +16,14 @@
             </li>
             <li>
                 Image: <a href="{{ additional_data.image_link }}" target="_blank">{{
-                    additional_data.image_link.split("/")[-1].split("?")[0] }}</a>
+                additional_data.image_link.split("/")[-1].split("?")[0] }}</a>
             </li>
             <li>
                 Docs: <a href="{{ additional_data.confluence_link }}" target="_blank">confluence A&M</a>
             </li>
             <li>
                 App-interface: <a href="{{ additional_data.app_interface_link }}" target="_blank">{{
-                    "/".join(additional_data.app_interface_link.split("/")[-4:]) }}</a>
+                "/".join(additional_data.app_interface_link.split("/")[-4:]) }}</a>
             </li>
             <li>
                 Release docs:
@@ -48,7 +48,8 @@
             <a href="{{ data.release_production_mr_url }}">
                 MR#{{ data.release_production_mr_url.split("/")[-1] }}
             </a>
-            merged on <strong>{{ data.date_release_production }}</strong> by <strong>{{ data.release_author }}</strong><br>
+            merged on <strong>{{ data.date_release_production }}</strong> by <strong>{{ data.release_author
+            }}</strong><br>
 
             {% if data.commit_stage == data_commit_master %}
             last commit SHA on the {{ data.main_branch }} branch: {{ data.commit_master }}
@@ -57,13 +58,15 @@
                 Production commit: <code> {{ data.commit_production[:7] }} </code>
                 <span id="commit-sha-production" hidden>{{ data.commit_production}}</span>
                 <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                    onclick="copyToClipboard('commit-sha-production')">Copy</button>
+                        onclick="copyToClipboard('commit-sha-production')">Copy
+                </button>
             </div>
             <div>
                 Stage commit: <code> {{ data.commit_stage[:7] }} </code>
                 <span id="commit-sha-stage" hidden>{{ data.commit_stage}}</span>
                 <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                    onclick="copyToClipboard('commit-sha-stage')">Copy</button>
+                        onclick="copyToClipboard('commit-sha-stage')">Copy
+                </button>
             </div>
 
             {% if data.commit_stage == data_commit_master %}
@@ -71,12 +74,13 @@
                 last commit on the {{ data.main_branch }} branch: {{ data.commit_master[:7] }}
                 <span id="commit-sha-master" hidden>{{ data.commit_master}}</span>
                 <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                    onclick="copyToClipboard('commit-sha-master')">Copy</button>
+                        onclick="copyToClipboard('commit-sha-master')">Copy
+                </button>
             </div>
             {% endif %}
 
             Days without release: <span style="font-weight: bold;">{{ data.days_without_release }}</span> <br>
-            PRs waiting for prod release: <span style="font-weight: bold;">{{ data.list_of_pr|count }}</span>  <br>
+            PRs waiting for prod release: <span style="font-weight: bold;">{{ data.list_of_pr|count }}</span> <br>
             All PRs with QE status "passed" or "N/A":
             {% if data.all_passed %}
             <span style="color: darkgreen; font-weight: bold;">Yes</span>
@@ -117,7 +121,7 @@
                             {% if pr.qe_note %}
                             : {{ pr.qe_note}}
                             {% endif %}
-                             <strong>({{ pr.qe_author }})</strong>
+                            <strong>({{ pr.qe_author }})</strong>
                             {% endif %}
                         </li>
                     </ul>

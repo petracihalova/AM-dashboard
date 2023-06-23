@@ -1,6 +1,7 @@
-import requests
-import os
 import json
+import os
+
+import requests
 
 from utils import load_json_from_file
 
@@ -15,7 +16,7 @@ def get_open_pull_requests():
         owner = repo["repo_link"].split("/")[-2]
         repo_name = repo["repo_link"].split("/")[-1]
 
-        GH_token = os.environ.get('GH_TOKEN')
+        gh_token = os.environ.get('GH_TOKEN')
 
         url = f"https://api.github.com/repos/{owner}/{repo_name}/pulls"
         params = {
@@ -24,7 +25,7 @@ def get_open_pull_requests():
 
         headers = {
             "Accept": "application/vnd.github.v3+json",
-            "Authorization": f"Bearer {GH_token}"
+            "Authorization": f"Bearer {gh_token}"
         }
 
         response = requests.get(url, params=params, headers=headers)
@@ -33,7 +34,6 @@ def get_open_pull_requests():
             pull_requests[repo_name] = response.json()
         else:
             pull_requests[repo_name] = None
-
 
     with open("application/data/pull_requests.json", mode="w", encoding="utf-8") as file:
         json.dump(pull_requests, file, indent=4)

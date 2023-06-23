@@ -15,25 +15,25 @@
 
     <table class="table table-hover">
         <thead>
-            <tr>
-                <th scope="col">Repo</th>
-                <th scope="col">Link</th>
-                <th scope="col">Master/Main</th>
-                <th scope="col">Stage</th>
-                <th scope="col">Prod</th>
-                <th scope="col">Stats</th>
-                <th scope="col">QE</th>
-            </tr>
+        <tr>
+            <th scope="col">Repo</th>
+            <th scope="col">Link</th>
+            <th scope="col">Master/Main</th>
+            <th scope="col">Stage</th>
+            <th scope="col">Prod</th>
+            <th scope="col">Stats</th>
+            <th scope="col">QE</th>
+        </tr>
         </thead>
         <tbody>
 
-            {% for repo in services %}
+        {% for repo in services %}
 
-            {% include "services/main_row.html" %}
+        {% include "services/main_row.html" %}
 
-            {% include "services/additional_info.html" %}
+        {% include "services/additional_info.html" %}
 
-            {% endfor %}
+        {% endfor %}
 
         </tbody>
     </table>
