@@ -7,7 +7,7 @@ from utils import load_json_from_file
 
 
 def get_open_pull_requests():
-    data = load_json_from_file("repos.json")
+    data, error = load_json_from_file("repos.json")
     github_data = data["github_repos"]
 
     pull_requests = {}
