@@ -10,12 +10,12 @@ from utils import load_json_from_file
 
 
 def overview():
-    data = load_json_from_file("repos.json")
-    github_data = data["github_repos"]
-    gitlab_data = data["gitlab_repos"]
+    repos, error = load_json_from_file("repos.json")
+    if error:
+        error_msg = "The 'Overview' page should display data from 'application/data/repo.json' but the file is not found."
+        return render_template("errors/404.html", error_msg=error_msg)
 
-    return render_template("overview.html", index=True, github_data=github_data, gitlab_data=gitlab_data)
-
+    return render_template("overview.html", repos=repos)
 
 def services():
     backend_api = os.environ.get("BE_API")
@@ -40,7 +40,7 @@ def services():
         for pr in repo.list_of_pr:
             authors.add(pr["pr_author"])
 
-    return render_template("services.html", index=True, services=services_list, authors=authors)
+    return render_template("services.html", services=services_list, authors=authors)
 
 
 def open_pr():
@@ -59,7 +59,7 @@ def open_pr():
         for pr in pr_list:
             authors.add(pr["user"]["login"])
 
-    return render_template("open_pr.html", index=True, gh_pr=gh_pull_requests, authors=authors)
+    return render_template("open_pr.html", gh_pr=gh_pull_requests, authors=authors)
 
 
 def release_notes(id):
@@ -80,4 +80,4 @@ def release_notes(id):
             if repo["repo_link"].lower() == resource_data["link"].lower():
                 additional_data = repo
 
-    return render_template("release_notes.html", index=True, data=resource_data, additional_data=additional_data)
+    return render_template("release_notes.html", data=resource_data, additional_data=additional_data)

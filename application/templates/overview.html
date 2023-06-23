@@ -6,7 +6,7 @@
     <h1 class="mt-4">Access & Management team repos:</h1>
     <h3>GitHub</h3>
     <div class="row">
-        {% for repo in github_data %}
+        {% for repo in repos["github_repos"] %}
         <div class="card" style="width: 18rem;">
             <div class="card-header">{{repo.name.upper()}}</div>
             <div class="card-body">
@@ -61,7 +61,7 @@
 
     <h3>GitLab</h3>
     <div class="row">
-        {% for repo in gitlab_data %}
+        {% for repo in repos["gitlab_repos"] %}
         <div class="card" style="width: 18rem;">
             <div class="card-header">{{repo.name.upper()}}</div>
             <div class="card-body">
