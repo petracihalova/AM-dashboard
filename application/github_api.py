@@ -16,7 +16,7 @@ def get_open_pull_requests():
         owner = repo["repo_link"].split("/")[-2]
         repo_name = repo["repo_link"].split("/")[-1]
 
-        gh_token = os.environ.get('GH_TOKEN')
+        gh_token = os.environ.get('GITHUB_TOKEN')
 
         url = f"https://api.github.com/repos/{owner}/{repo_name}/pulls"
         params = {
