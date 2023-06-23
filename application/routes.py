@@ -1,11 +1,12 @@
-from flask import render_template
-import requests
-import os
 import json
+import os
 
-from utils import load_json_from_file
+import requests
+from flask import render_template
+
 from github_api import get_open_pull_requests
 from models import Repo
+from utils import load_json_from_file
 
 
 def overview():
@@ -17,13 +18,12 @@ def overview():
 
 
 def services():
-
     backend_api = os.environ.get("BE_API")
     path = backend_api + "/resources"
 
     response = requests.get(path)
     data = response.json()
-    
+
     services_list = []
     for item in data:
         if item["service_name"] == "turnpike":
@@ -41,6 +41,7 @@ def services():
             authors.add(pr["pr_author"])
 
     return render_template("services.html", index=True, services=services_list, authors=authors)
+
 
 def open_pr():
     try:
@@ -60,8 +61,8 @@ def open_pr():
 
     return render_template("open_pr.html", index=True, gh_pr=gh_pull_requests, authors=authors)
 
-def release_notes(id):
 
+def release_notes(id):
     backend_api = os.environ.get("BE_API")
     path = backend_api + "/resources/" + id
     print(path)
@@ -72,7 +73,7 @@ def release_notes(id):
     else:
         resource_data = response.status_code
 
-    additional_data = ""    
+    additional_data = ""
     repozitory_data = load_json_from_file("repos.json")
     for _, repozitory in repozitory_data.items():
         for repo in repozitory:

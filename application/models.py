@@ -1,10 +1,12 @@
 from dataclasses import dataclass, field
 from typing import List
 
+
 @dataclass
 class JiraTicket:
     name: str
     link: str
+
 
 @dataclass
 class PR:
@@ -19,6 +21,7 @@ class PR:
     qe_note: str
     qe_author: str
     jira_tickets: List[JiraTicket]
+
 
 @dataclass
 class Repo:
