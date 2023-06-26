@@ -41,13 +41,18 @@ def services():
 
     return render_template("services.html", services=services_list, authors=authors)
 
+
 def open_pr():
     try:
-        with open("application/data/pull_requests.json", mode="r", encoding="utf-8") as file:
+        with open(
+            "application/data/pull_requests.json", mode="r", encoding="utf-8"
+        ) as file:
             gh_pull_requests = json.load(file)
     except FileNotFoundError:
         get_open_pull_requests()
-        with open("application/data/pull_requests.json", mode="r", encoding="utf-8") as file:
+        with open(
+            "application/data/pull_requests.json", mode="r", encoding="utf-8"
+        ) as file:
             gh_pull_requests = json.load(file)
 
     authors = set()
@@ -77,4 +82,6 @@ def release_notes(id):
             if repo["repo_link"].lower() == resource_data["link"].lower():
                 additional_data = repo
 
-    return render_template("release_notes.html", data=resource_data, additional_data=additional_data)
+    return render_template(
+        "release_notes.html", data=resource_data, additional_data=additional_data
+    )
