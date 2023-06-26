@@ -5,6 +5,7 @@ import routes
 
 def create_app():
     new_app = Flask(__name__)
+    new_app.config.from_object("config")
 
     new_app.add_url_rule("/", view_func=routes.overview)
     new_app.add_url_rule("/services", view_func=routes.services)

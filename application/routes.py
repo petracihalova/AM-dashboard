@@ -1,8 +1,7 @@
 import json
-import os
 
 import requests
-from flask import render_template
+from flask import render_template, current_app
 
 from github_api import get_open_pull_requests
 from models import Repo
@@ -18,8 +17,7 @@ def overview():
     return render_template("overview.html", repos=repos)
 
 def services():
-    backend_api = os.environ.get("BE_API")
-    path = backend_api + "/resources"
+    path = current_app.config["BACKEND_API"] + "/resources"
 
     response = requests.get(path)
     data = response.json()
@@ -42,7 +40,6 @@ def services():
 
     return render_template("services.html", services=services_list, authors=authors)
 
-
 def open_pr():
     try:
         with open("application/data/pull_requests.json", mode="r", encoding="utf-8") as file:
@@ -63,9 +60,7 @@ def open_pr():
 
 
 def release_notes(id):
-    backend_api = os.environ.get("BE_API")
-    path = backend_api + "/resources/" + id
-    print(path)
+    path = current_app.config["BACKEND_API"] + "/resources/" + id
 
     response = requests.get(path)
     if response.status_code == 200:
