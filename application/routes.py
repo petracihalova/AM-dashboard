@@ -11,10 +11,11 @@ from utils import load_json_from_file
 def overview():
     repos, error = load_json_from_file("repos.json")
     if error:
-        error_msg = "The 'Overview' page should display data from 'application/data/repo.json' but the file is not found."
+        error_msg = "The 'Overview' page should display data from 'application/data/repos.json' but the file is not found."
         return render_template("errors/404.html", error_msg=error_msg)
 
     return render_template("overview.html", repos=repos)
+
 
 def services():
     path = current_app.config["BACKEND_API"] + "/resources"
@@ -40,13 +41,18 @@ def services():
 
     return render_template("services.html", services=services_list, authors=authors)
 
+
 def open_pr():
     try:
-        with open("application/data/pull_requests.json", mode="r", encoding="utf-8") as file:
+        with open(
+            "application/data/pull_requests.json", mode="r", encoding="utf-8"
+        ) as file:
             gh_pull_requests = json.load(file)
     except FileNotFoundError:
         get_open_pull_requests()
-        with open("application/data/pull_requests.json", mode="r", encoding="utf-8") as file:
+        with open(
+            "application/data/pull_requests.json", mode="r", encoding="utf-8"
+        ) as file:
             gh_pull_requests = json.load(file)
 
     authors = set()
@@ -66,14 +72,19 @@ def release_notes(id):
     if response.status_code == 200:
         resource_data = response.json()
     else:
-        resource_data = response.status_code
+        resource_data = None
 
     additional_data = ""
     repozitory_data, error = load_json_from_file("repos.json")
+    if error:
+        error_msg = "The 'Release notes' page should display data from 'application/data/repos.json' but the file is not found."
+        return render_template("errors/404.html", error_msg=error_msg)
 
     for _, repozitory in repozitory_data.items():
         for repo in repozitory:
             if repo["repo_link"].lower() == resource_data["link"].lower():
                 additional_data = repo
 
-    return render_template("release_notes.html", data=resource_data, additional_data=additional_data)
+    return render_template(
+        "release_notes.html", data=resource_data, additional_data=additional_data
+    )
