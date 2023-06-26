@@ -1,7 +1,7 @@
 import json
-import os
 
 import requests
+from flask import current_app
 
 from utils import load_json_from_file
 
@@ -16,7 +16,7 @@ def get_open_pull_requests():
         owner = repo["repo_link"].split("/")[-2]
         repo_name = repo["repo_link"].split("/")[-1]
 
-        gh_token = os.environ.get('GITHUB_TOKEN')
+        gh_token = current_app.config["GITHUB_TOKEN"]
 
         url = f"https://api.github.com/repos/{owner}/{repo_name}/pulls"
         params = {
