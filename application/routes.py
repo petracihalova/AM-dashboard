@@ -11,10 +11,11 @@ from utils import load_json_from_file
 def overview():
     repos, error = load_json_from_file("repos.json")
     if error:
-        error_msg = "The 'Overview' page should display data from 'application/data/repo.json' but the file is not found."
+        error_msg = "The 'Overview' page should display data from 'application/data/repos.json' but the file is not found."
         return render_template("errors/404.html", error_msg=error_msg)
 
     return render_template("overview.html", repos=repos)
+
 
 def services():
     path = current_app.config["BACKEND_API"] + "/resources"
