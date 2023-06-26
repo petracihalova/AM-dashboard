@@ -72,10 +72,13 @@ def release_notes(id):
     if response.status_code == 200:
         resource_data = response.json()
     else:
-        resource_data = response.status_code
+        resource_data = None
 
     additional_data = ""
     repozitory_data, error = load_json_from_file("repos.json")
+    if error:
+        error_msg = "The 'Release notes' page should display data from 'application/data/repos.json' but the file is not found."
+        return render_template("errors/404.html", error_msg=error_msg)
 
     for _, repozitory in repozitory_data.items():
         for repo in repozitory:
