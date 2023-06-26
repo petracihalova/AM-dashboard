@@ -69,7 +69,8 @@ def release_notes(id):
         resource_data = response.status_code
 
     additional_data = ""
-    repozitory_data = load_json_from_file("repos.json")
+    repozitory_data, error = load_json_from_file("repos.json")
+
     for _, repozitory in repozitory_data.items():
         for repo in repozitory:
             if repo["repo_link"].lower() == resource_data["link"].lower():
