@@ -78,7 +78,7 @@
     },
     {
       "name": "entitlements",
-      "repo_link": "https://github.com/redhatinsights/entitlements",
+      "repo_link": "https://github.com/redhatinsights/entitlements-api-go",
       "image_link": "https://quay.io/repository/cloudservices/entitlements-api-go?tab=tags",
       "confluence_link": "https://docs.engineering.redhat.com/x/i67vFQ",
       "app_interface_link": "https://gitlab.cee.redhat.com/service/app-interface/-/tree/master/data/services/insights/entitlements",
