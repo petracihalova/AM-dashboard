@@ -7,7 +7,8 @@ from utils import load_json_from_file
 
 
 def get_open_pull_requests():
-    data, error = load_json_from_file("repos.json")
+    data = load_json_from_file("repos.json")
+
     github_data = data["github_repos"]
 
     pull_requests = {}
@@ -27,7 +28,6 @@ def get_open_pull_requests():
             "Accept": "application/vnd.github.v3+json",
             "Authorization": f"Bearer {gh_token}"
         }
-
         response = requests.get(url, params=params, headers=headers)
 
         if response.status_code == 200:
