@@ -9,8 +9,9 @@ from utils import load_json_from_file
 
 
 def overview():
-    repos, error = load_json_from_file("repos.json")
-    if error:
+    try:
+        repos = load_json_from_file("repos.json")
+    except FileNotFoundError:
         error_msg = "The 'Overview' page should display data from 'application/data/repos.json' but the file is not found."
         return render_template("errors/404.html", error_msg=error_msg)
 
@@ -49,7 +50,11 @@ def open_pr():
         ) as file:
             gh_pull_requests = json.load(file)
     except FileNotFoundError:
-        get_open_pull_requests()
+        try:
+            get_open_pull_requests()
+        except FileNotFoundError:
+            error_msg = "The 'Open PRs' page should display data from 'application/data/repos.json' but the file is not found."
+            return render_template("errors/404.html", error_msg=error_msg)
         with open(
             "application/data/pull_requests.json", mode="r", encoding="utf-8"
         ) as file:
@@ -75,8 +80,9 @@ def release_notes(id):
         resource_data = None
 
     additional_data = ""
-    repozitory_data, error = load_json_from_file("repos.json")
-    if error:
+    try:
+        repozitory_data = load_json_from_file("repos.json")
+    except FileNotFoundError:
         error_msg = "The 'Release notes' page should display data from 'application/data/repos.json' but the file is not found."
         return render_template("errors/404.html", error_msg=error_msg)
 
