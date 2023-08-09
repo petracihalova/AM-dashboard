@@ -5,6 +5,7 @@
 
 <div class="container-fluid">
     <h1 class="mt-4">Open PRs</h1>
+    <p style="font-weight: bold;">without drafts and WIP</p>
     <br>
     {% include "includes/dropdown_names.html" %}
     <br>
@@ -20,9 +21,8 @@
     <ul id="pr_list">
         {% for pr in prs %}
         <li>
-            <a href="{{ pr.html_url }}" target="_blank">
-                PR#{{ pr.number }}
-            </a>
+            <a href="{{ pr.html_url }}" target="_blank">PR#{{ pr.number }}</a>
+
             {{ pr.title }}
             ({{ pr.user.login}})
             from {{ pr.created_at}}

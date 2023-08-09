@@ -5,7 +5,7 @@ from flask import render_template, current_app
 
 from github_api import get_open_pull_requests
 from models import Repo
-from utils import load_json_from_file
+from utils import load_json_from_file, remove_pr_drafts
 
 
 def overview():
@@ -67,7 +67,9 @@ def open_pr():
         for pr in pr_list:
             authors.add(pr["user"]["login"])
 
-    return render_template("open_pr.html", gh_pr=gh_pull_requests, authors=authors)
+    pr_list_without_drafts = remove_pr_drafts(gh_pull_requests)
+
+    return render_template("open_pr.html", gh_pr=pr_list_without_drafts, authors=authors)
 
 
 def release_notes(id):
