@@ -15,15 +15,26 @@
                 Repo: <a href="{{ data.link }}" target="_blank">{{ data.link.split("/")[-1] }}</a>
             </li>
             <li>
+
+                {% if additional_data.image_link is string %}
                 Image: <a href="{{ additional_data.image_link }}" target="_blank">{{
-                additional_data.image_link.split("/")[-1].split("?")[0] }}</a>
+                    additional_data.image_link.split("/")[-1].split("?")[0] }}</a>
+
+                {% elif additional_data.image_link is iterable %}
+                Image:
+                {% for link in additional_data.image_link %}
+                <a href="{{ link }}" target="_blank">{{
+                    link.split("/")[-1].split("?")[0] }}</a>
+                {% endfor %}
+                {% endif %}
+
             </li>
             <li>
                 Docs: <a href="{{ additional_data.confluence_link }}" target="_blank">confluence A&M</a>
             </li>
             <li>
                 App-interface: <a href="{{ additional_data.app_interface_link }}" target="_blank">{{
-                "/".join(additional_data.app_interface_link.split("/")[-4:]) }}</a>
+                    "/".join(additional_data.app_interface_link.split("/")[-4:]) }}</a>
             </li>
             <li>
                 Release docs:
@@ -49,7 +60,7 @@
                 MR#{{ data.release_production_mr_url.split("/")[-1] }}
             </a>
             merged on <strong>{{ data.date_release_production }}</strong> by <strong>{{ data.release_author
-            }}</strong><br>
+                }}</strong><br>
 
             {% if data.commit_stage == data_commit_master %}
             last commit SHA on the {{ data.main_branch }} branch: {{ data.commit_master }}
@@ -58,14 +69,14 @@
                 Production commit: <code> {{ data.commit_production[:7] }} </code>
                 <span id="commit-sha-production" hidden>{{ data.commit_production}}</span>
                 <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                        onclick="copyToClipboard('commit-sha-production')">Copy
+                    onclick="copyToClipboard('commit-sha-production')">Copy
                 </button>
             </div>
             <div>
                 Stage commit: <code> {{ data.commit_stage[:7] }} </code>
                 <span id="commit-sha-stage" hidden>{{ data.commit_stage}}</span>
                 <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                        onclick="copyToClipboard('commit-sha-stage')">Copy
+                    onclick="copyToClipboard('commit-sha-stage')">Copy
                 </button>
             </div>
 
@@ -74,7 +85,7 @@
                 last commit on the {{ data.main_branch }} branch: {{ data.commit_master[:7] }}
                 <span id="commit-sha-master" hidden>{{ data.commit_master}}</span>
                 <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                        onclick="copyToClipboard('commit-sha-master')">Copy
+                    onclick="copyToClipboard('commit-sha-master')">Copy
                 </button>
             </div>
             {% endif %}
