@@ -1,6 +1,6 @@
 __pycache__
 
 venv/*
-application/data/pull_requests.json
+release-manager-ui/data/pull_requests.json
 
 .env
