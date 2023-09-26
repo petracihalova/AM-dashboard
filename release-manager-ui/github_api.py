@@ -3,11 +3,13 @@ import json
 import requests
 from flask import current_app
 
-from utils import load_json_from_file
+from utils import load_json_from_file, save_json_to_file
 
 
 def get_open_pull_requests():
     data = load_json_from_file("repos.json")
+    if not data:
+        return None
 
     github_data = data["github_repos"]
 
@@ -35,5 +37,4 @@ def get_open_pull_requests():
         else:
             pull_requests[repo_name] = None
 
-    with open("release-manager-ui/data/pull_requests.json", mode="w", encoding="utf-8") as file:
-        json.dump(pull_requests, file, indent=4)
+    save_json_to_file(pull_requests, "pull_requests.json")
