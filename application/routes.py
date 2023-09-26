@@ -18,29 +18,29 @@ def overview():
     return render_template("overview.html", repos=repos)
 
 
-def services():
+def deployments():
     path = current_app.config["BACKEND_API"] + "/resources"
 
     response = requests.get(path)
     data = response.json()
 
-    services_list = []
+    deployments_list = []
     for item in data:
         if item["service_name"] == "turnpike":
             item["name"] = "turnpike-" + item["name"]
 
-        services_list.append(Repo(**item))
+        deployments_list.append(Repo(**item))
 
-    services_list = sorted(services_list, key=lambda x: x.name)
+    deployments_list = sorted(deployments_list, key=lambda x: x.name)
 
     authors = set()
-    for repo in services_list:
+    for repo in deployments_list:
         if not repo.list_of_pr:
             continue
         for pr in repo.list_of_pr:
             authors.add(pr["pr_author"])
 
-    return render_template("services.html", services=services_list, authors=authors)
+    return render_template("deployments.html", deployments=deployments_list, authors=authors)
 
 
 def open_pr():

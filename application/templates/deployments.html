@@ -3,9 +3,9 @@
 {% block content %}
 
 <div class="container-fluid">
-    <h1 class="mt-4">Services</h1>
+    <h1 class="mt-4">Deployments</h1>
     <br>
-    {% if not services %}
+    {% if not deployments %}
     <h3>No data to display. </h3>
     {% else %}
 
@@ -27,11 +27,11 @@
         </thead>
         <tbody>
 
-        {% for repo in services %}
+        {% for repo in deployments %}
 
-        {% include "services/main_row.html" %}
+        {% include "deployments/main_row.html" %}
 
-        {% include "services/additional_info.html" %}
+        {% include "deployments/additional_info.html" %}
 
         {% endfor %}
 
