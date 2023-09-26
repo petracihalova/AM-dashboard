@@ -35,5 +35,5 @@ def get_open_pull_requests():
         else:
             pull_requests[repo_name] = None
 
-    with open("application/data/pull_requests.json", mode="w", encoding="utf-8") as file:
+    with open("release-manager-ui/data/pull_requests.json", mode="w", encoding="utf-8") as file:
         json.dump(pull_requests, file, indent=4)

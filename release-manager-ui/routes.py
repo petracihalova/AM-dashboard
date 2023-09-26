@@ -12,7 +12,7 @@ def overview():
     try:
         repos = load_json_from_file("repos.json")
     except FileNotFoundError:
-        error_msg = "The 'Overview' page should display data from 'application/data/repos.json' but the file is not found."
+        error_msg = "The 'Overview' page should display data from 'release-manager-ui/data/repos.json' but the file is not found."
         return render_template("errors/404.html", error_msg=error_msg)
 
     return render_template("overview.html", repos=repos)
@@ -46,17 +46,17 @@ def deployments():
 def open_pr():
     try:
         with open(
-            "application/data/pull_requests.json", mode="r", encoding="utf-8"
+            "release-manager-ui/data/pull_requests.json", mode="r", encoding="utf-8"
         ) as file:
             gh_pull_requests = json.load(file)
     except FileNotFoundError:
         try:
             get_open_pull_requests()
         except FileNotFoundError:
-            error_msg = "The 'Open PRs' page should display data from 'application/data/repos.json' but the file is not found."
+            error_msg = "The 'Open PRs' page should display data from 'release-manager-ui/data/repos.json' but the file is not found."
             return render_template("errors/404.html", error_msg=error_msg)
         with open(
-            "application/data/pull_requests.json", mode="r", encoding="utf-8"
+            "release-manager-ui/data/pull_requests.json", mode="r", encoding="utf-8"
         ) as file:
             gh_pull_requests = json.load(file)
 
@@ -85,7 +85,7 @@ def release_notes(id):
     try:
         repozitory_data = load_json_from_file("repos.json")
     except FileNotFoundError:
-        error_msg = "The 'Release notes' page should display data from 'application/data/repos.json' but the file is not found."
+        error_msg = "The 'Release notes' page should display data from 'release-manager-ui/data/repos.json' but the file is not found."
         return render_template("errors/404.html", error_msg=error_msg)
 
     for _, repozitory in repozitory_data.items():
