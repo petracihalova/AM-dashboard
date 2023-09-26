@@ -20,7 +20,7 @@
         {% for pr in prs %}
         <li>
             {% if pr.draft %}
-                (draft)
+                [draft]
             {% endif %}
 
             <a href="{{ pr.html_url }}" target="_blank">PR#{{ pr.number }}</a>
