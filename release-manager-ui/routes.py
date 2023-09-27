@@ -9,10 +9,9 @@ from utils import load_json_from_file
 
 
 def overview():
-    try:
-        repos = load_json_from_file("repos.json")
-    except FileNotFoundError:
-        error_msg = "The 'Overview' page should display data from 'release-manager-ui/data/repos.json' but the file is not found."
+    repos = load_json_from_file("repos.json")
+    if not repos:
+        error_msg = "No data to display."
         return render_template("errors/404.html", error_msg=error_msg)
 
     return render_template("overview.html", repos=repos)
@@ -26,9 +25,6 @@ def deployments():
 
     deployments_list = []
     for item in data:
-        if item["service_name"] == "turnpike":
-            item["name"] = "turnpike-" + item["name"]
-
         deployments_list.append(Repo(**item))
 
     deployments_list = sorted(deployments_list, key=lambda x: x.name)
@@ -80,13 +76,13 @@ def release_notes(id):
         resource_data = None
 
     additional_data = ""
-    try:
-        repozitory_data = load_json_from_file("repos.json")
-    except FileNotFoundError:
-        error_msg = "The 'Release notes' page should display data from 'release-manager-ui/data/repos.json' but the file is not found."
+    
+    repozitory_data = load_json_from_file("repos.json")
+    if not repozitory_data:
+        error_msg = "No data to display."
         return render_template("errors/404.html", error_msg=error_msg)
 
-    for _, repozitory in repozitory_data.items():
+    for repozitory in repozitory_data.values():
         for repo in repozitory:
             if repo["repo_link"].lower() == resource_data["link"].lower():
                 additional_data = repo
