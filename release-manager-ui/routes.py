@@ -18,7 +18,7 @@ def overview():
 
 
 def deployments():
-    url = app.config["BACKEND_API"] + "/resources"
+    url = current_app.config["BACKEND_API"] + "/resources"
 
     response = requests.get(url)
     data = response.json()
