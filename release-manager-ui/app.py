@@ -23,7 +23,7 @@ app = create_app()
 @app.errorhandler(Exception)
 def server_error(err):
     '''
-    Catch and handle all unhandled exceptions.
+    Catch and handle all unhandled and raised exceptions.
 
     Unhandled exception = not catched by try + except block.
     '''

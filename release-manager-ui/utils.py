@@ -13,16 +13,9 @@ def load_json_from_file(filename):
         current_app.logger.error(f"File '{DEFAULT_PATH + filename}' not found.")
     except json.JSONDecodeError as e:
         current_app.logger.error(f"Error decoding JSON from file '{DEFAULT_PATH + filename}': {e}")
-    except Exception as e:
-        current_app.logger.error(e)
 
 
 def save_json_to_file(data, filename):
-    try:
-        with open(DEFAULT_PATH + filename, 'w', encoding="utf-8") as file:
-            json.dump(data, file, indent=4)
-        current_app.logger.info(f"JSON data saved to '{DEFAULT_PATH + filename}'")
-    except json.JSONDecodeError as e:
-        current_app.logger.error(f"Error saving JSON to file '{DEFAULT_PATH + filename}': {e}")
-    except Exception as e:
-        current_app.logger.error(e)
+    with open(DEFAULT_PATH + filename, 'w', encoding="utf-8") as file:
+        json.dump(data, file, indent=4)
+    current_app.logger.info(f"JSON data saved to '{DEFAULT_PATH + filename}'")
