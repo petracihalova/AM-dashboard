@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 import routes
 
@@ -16,3 +16,16 @@ def create_app():
 
 
 app = create_app()
+
+
+# Error Middleware
+
+@app.errorhandler(Exception)
+def server_error(err):
+    '''
+    Catch and handle all unhandled exceptions.
+
+    Unhandled exception = not catched by try + except block.
+    '''
+    app.logger.exception(err) # log the traceback
+    return render_template("errors/error.html", error_msg="")  
