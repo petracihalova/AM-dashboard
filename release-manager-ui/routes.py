@@ -18,9 +18,9 @@ def overview():
 
 
 def deployments():
-    path = current_app.config["BACKEND_API"] + "/resources"
+    url = app.config["BACKEND_API"] + "/resources"
 
-    response = requests.get(path)
+    response = requests.get(url)
     data = response.json()
 
     deployments_list = []
