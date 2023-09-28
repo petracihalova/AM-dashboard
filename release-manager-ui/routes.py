@@ -20,7 +20,22 @@ def overview():
 def deployments():
     url = current_app.config["BACKEND_API"] + "/resources"
 
-    response = requests.get(url)
+    request_exceptions = (
+        requests.exceptions.HTTPError,
+        requests.exceptions.ReadTimeout,
+        requests.exceptions.ConnectionError
+    )
+
+    try:
+        response = requests.get(url, timeout=1)
+        response.raise_for_status()
+
+    except request_exceptions as err:
+        err_message = f"{type(err).__name__}: {err}"
+        current_app.logger.error(err_message)
+        return render_template("errors/error.html", error_msg=err_message)
+ 
+
     data = response.json()
 
     deployments_list = []
