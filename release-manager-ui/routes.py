@@ -4,7 +4,7 @@ import requests
 from flask import render_template, current_app
 
 from github_api import get_open_pull_requests
-from utils import load_json_from_file, create_pull_requests, create_deployments
+from utils import load_json_from_file, create_deployments, get_pr_authors_from_deployments
 
 
 def overview():
@@ -38,10 +38,8 @@ def deployments():
 
     authors = set()
     for repo in deployments_list:
-        if not repo.list_of_pr:
-            continue
-        for pull_request in repo.list_of_pr:
-            authors.add(pull_request.pr_author)
+        authors.update(get_pr_authors_from_deployments(repo.list_of_pr))
+        authors.update(get_pr_authors_from_deployments(repo.list_of_pr_master_stage))
 
     return render_template(
         "deployments.html", deployments=deployments_list, authors=authors
