@@ -1,13 +1,13 @@
 import requests
 import re
-from flask import current_app, render_template
+from flask import current_app, render_template, abort
 
 from utils import load_json_from_file, save_json_to_file, file_exists
-from config import SERVICES_LINKS, PULL_REQUEST_LIST
+import config
 
 
 def get_github_repos_links(json_data):
-    pattern = r'^(https?://)?(www\.)?github\.com/[\w-]+/[\w-]+/?$'
+    pattern = r"^(https?://)?(www\.)?github\.com/[\w-]+/[\w-]+/?$"
     gh_links = set()
     for category in json_data["categories"]:
         for repo in category["category_repos"]:
@@ -19,19 +19,20 @@ def get_github_repos_links(json_data):
 
 
 def get_open_pull_requests():
-    if not file_exists(SERVICES_LINKS):
-        current_app.logger.warning(f"File '{SERVICES_LINKS}' doesn't exist or doesn't contain links to GitHub/GitLab repos.")
+    if not file_exists(config.SERVICES_LINKS):
+        current_app.logger.warning(f"File '{config.SERVICES_LINKS}' doesn't exist.")
         error_msg = "The list of repos not found. No data to display."
         return render_template("errors/404.html", error_msg=error_msg)
-   
-    json_data = load_json_from_file(SERVICES_LINKS)
+
+    json_data = load_json_from_file(config.SERVICES_LINKS)
     if not json_data:
+        current_app.logger.warning(f"No data found in the '{config.SERVICES_LINKS}'")
         return render_template("errors/error.html", error_msg="")
 
     github_links = get_github_repos_links(json_data)
 
     pull_requests = {}
-    pattern = r'(?:https?://)?(?:www\.)?github\.com/([\w-]+)/([\w-]+)/?'
+    pattern = r"(?:https?://)?(?:www\.)?github\.com/([\w-]+)/([\w-]+)/?"
 
     for url in github_links:
         match = re.search(pattern, url)
@@ -39,22 +40,39 @@ def get_open_pull_requests():
             owner = match.group(1)
             repo_name = match.group(2)
 
-        gh_token = current_app.config["GITHUB_TOKEN"]
+        gh_token = config.GITHUB_TOKEN
 
         url = f"https://api.github.com/repos/{owner}/{repo_name}/pulls"
-        params = {
-            "state": "open"
-        }
+        params = {"state": "open"}
 
         headers = {
             "Accept": "application/vnd.github.v3+json",
-            "Authorization": f"Bearer {gh_token}"
+            "Authorization": f"Bearer {gh_token}",
         }
-        response = requests.get(url, params=params, headers=headers)
 
-        if response.status_code == 200:
-            pull_requests[repo_name] = response.json()
-        else:
-            pull_requests[repo_name] = None
+        try:
+            current_app.logger.info(f"Request to GitHub API, url: {url}")
+            response = requests.get(url, params=params, headers=headers)
 
-    save_json_to_file(pull_requests, PULL_REQUEST_LIST)
+            current_app.logger.info(
+                f"Response from GitHub API, status code: {response.status_code}"
+            )
+
+            if response.status_code == 200:
+                pull_requests[repo_name] = response.json()
+
+            elif response.status_code == 401:
+                current_app.logger.error("401 Unauthorized - check the GitHub token.")
+                abort(401)
+
+            response.raise_for_status()
+
+        except requests.exceptions.RequestException as err:
+            current_app.logger.error(f"Request Exception: {err}")
+            abort(500)
+
+        except Exception as err:
+            current_app.logger.error(f"An error occurred: {err}")
+            abort(500)
+
+    save_json_to_file(pull_requests, config.PULL_REQUEST_LIST)
