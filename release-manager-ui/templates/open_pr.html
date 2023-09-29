@@ -12,9 +12,9 @@
     <br>
     <br>
 
-    {% for pr_name, prs in gh_pr.items() %}
+    {% for repo, prs in gh_pr.items() %}
     <p style="font-weight: bold;">
-        {{ pr_name.upper() }}
+        {{ repo.upper() }}
     </p>
 
     {% if prs %}
@@ -29,7 +29,7 @@
             <a href="{{ pr.html_url }}" target="_blank">PR#{{ pr.number }}</a>
 
             {{ pr.title }}
-            ({{ pr.user.login}})
+            ({{ pr.user_login}})
             from {{ pr.created_at}}
         </li>
         {% endfor %}

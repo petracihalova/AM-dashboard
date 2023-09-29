@@ -59,7 +59,22 @@ def get_open_pull_requests():
             )
 
             if response.status_code == 200:
-                pull_requests[repo_name] = response.json()
+                json_data = response.json()
+                if not json_data:
+                    pull_requests[repo_name] = []
+                else:
+                    open_pr_list = []
+                    for pr in json_data:
+                        open_pr_list.append({
+                            "number": pr["number"],
+                            "draft": pr["draft"],
+                            "title": pr["title"],
+                            "created_at": pr["created_at"],
+                            "user_login": pr["user"]["login"],
+                            "html_url": pr["html_url"]
+                        })
+
+                    pull_requests[repo_name] = open_pr_list
 
             elif response.status_code == 401:
                 current_app.logger.error("401 Unauthorized - check the GitHub token.")
