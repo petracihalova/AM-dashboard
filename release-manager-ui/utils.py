@@ -5,29 +5,26 @@ import os
 from models import Repo, PR, JiraTicket
 
 
-DEFAULT_PATH = "release-manager-ui/data/"
-
-
-def load_json_from_file(filename):
+def load_json_from_file(file):
     try:
-        with open(DEFAULT_PATH + filename, "r", encoding="utf-8") as file:
+        with open(file, "r", encoding="utf-8") as file:
             return json.load(file)
     except FileNotFoundError:
-        current_app.logger.error(f"File '{DEFAULT_PATH + filename}' not found.")
+        current_app.logger.error(f"File '{file}' not found.")
     except json.JSONDecodeError as e:
         current_app.logger.error(
-            f"Error decoding JSON from file '{DEFAULT_PATH + filename}': {e}"
+            f"Error decoding JSON from file '{file}': {e}"
         )
 
 
-def save_json_to_file(data, filename):
-    with open(DEFAULT_PATH + filename, "w", encoding="utf-8") as file:
+def save_json_to_file(data, file):
+    with open(file, "w", encoding="utf-8") as file:
         json.dump(data, file, indent=4)
-    current_app.logger.info(f"JSON data saved to '{DEFAULT_PATH + filename}'")
+    current_app.logger.info(f"JSON data saved to '{file}'")
 
 
 def file_exists(filename):
-    return os.path.exists(DEFAULT_PATH + filename)
+    return os.path.exists(filename)
 
 
 def create_pull_requests(pull_requests_data):

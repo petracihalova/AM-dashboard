@@ -5,13 +5,14 @@ from flask import render_template, current_app
 
 from github_api import get_open_pull_requests
 from utils import load_json_from_file, create_deployments, get_pr_authors_from_deployments, file_exists
+from config import SERVICES_LINKS, SERVICES_LINKS_EXAMPLE, PULL_REQUEST_LIST
 
 
 def overview():
-    if file_exists("services_links.json"):
-        repos = load_json_from_file("services_links.json")
+    if file_exists(SERVICES_LINKS):
+        repos = load_json_from_file(SERVICES_LINKS)
     else:
-        repos = load_json_from_file("services_links_example.json")
+        repos = load_json_from_file(SERVICES_LINKS_EXAMPLE)
     if not repos:
         error_msg = "No data to display."
         return render_template("errors/404.html", error_msg=error_msg)
@@ -50,10 +51,10 @@ def deployments():
 
 
 def open_pr():
-    if not file_exists("pull_requests.json"):
+    if not file_exists(PULL_REQUEST_LIST):
         get_open_pull_requests()
     
-    open_pr_list = load_json_from_file("pull_requests.json")
+    open_pr_list = load_json_from_file(PULL_REQUEST_LIST)
     if not open_pr_list:
         return render_template("errors/error.html", error_msg="")
 
