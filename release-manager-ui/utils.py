@@ -10,17 +10,15 @@ def load_json_from_file(file):
         with open(file, "r", encoding="utf-8") as file:
             return json.load(file)
     except FileNotFoundError:
-        current_app.logger.error(f"File '{file}' not found.")
+        current_app.logger.error(f"File '{file.name}' not found.")
     except json.JSONDecodeError as e:
-        current_app.logger.error(
-            f"Error decoding JSON from file '{file}': {e}"
-        )
+        current_app.logger.error(f"Error decoding JSON from file '{file.name}': {e}")
 
 
 def save_json_to_file(data, file):
     with open(file, "w", encoding="utf-8") as file:
         json.dump(data, file, indent=4)
-    current_app.logger.info(f"JSON data saved to '{file}'")
+    current_app.logger.info(f"JSON data saved to '{file.name}'")
 
 
 def file_exists(filename):

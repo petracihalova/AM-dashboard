@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import requests
 
 import routes
 
@@ -29,4 +30,10 @@ def handle_error(err):
     Unhandled exception = not catched by try + except block.
     """
     app.logger.exception(err)  # log the traceback
-    return render_template("errors/error.html", error_msg="")
+    return render_template("errors/error.html", error_msg=err)
+
+
+@app.errorhandler(401)
+def unauthorised_error(err):
+    app.logger.error(err)
+    return render_template("errors/error.html", error_msg="401 Unauthorised")
