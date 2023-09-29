@@ -8,7 +8,10 @@ from utils import load_json_from_file, create_deployments, get_pr_authors_from_d
 
 
 def overview():
-    repos = load_json_from_file("repos.json")
+    if file_exists("services_links.json"):
+        repos = load_json_from_file("services_links.json")
+    else:
+        repos = load_json_from_file("services_links_example.json")
     if not repos:
         error_msg = "No data to display."
         return render_template("errors/404.html", error_msg=error_msg)

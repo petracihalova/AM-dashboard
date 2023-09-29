@@ -4,96 +4,31 @@
 
 <div class="container-fluid">
     <h1 class="mt-4">Access & Management team repos:</h1>
-    <h3>GitHub</h3>
+    
+    {% for category in repos.categories %}
+    <h3>{{ category.category_name|capitalize }}</h3>
+
     <div class="row">
-        {% for repo in repos["github_repos"] %}
-        <div class="card" style="width: 18rem;">
+        
+        {% for repo in category.category_repos %}
+        <div class="card" style="width: 20rem;">
             <div class="card-header">{{repo.name.upper()}}</div>
             <div class="card-body">
-
-                <a href="{{ repo.repo_link }}" target="_blank" class="card-link">
-                    GH link
-                </a>
-                <br>
-
-                {% if repo.image_link %}
-
-                {% if repo.image_link is string %}
-                <a href="{{ repo.image_link }}" target="_blank" class="card-link">
-                    Quay link
-                </a>
-                <br>
-
-                {% elif repo.image_link is iterable %}
-
-                {% for link in repo.image_link %}
-                <a href="{{ link }}" target="_blank">
-                    Quay-{{ link.split("/")[-1].split("?")[0].split("-")[-1] }}
-                </a>
-                &nbsp;
-
-                {% endfor %}
-                <br>
-
-                {% endif %}
-                {% endif %}
-
-
-                {% if repo.confluence_link %}
-                <a href="{{ repo.confluence_link }}" target="_blank" class="card-link">
-                    Docs
-                </a>
-                <br>
-
-                {% endif %}
-
-                {% if repo.app_interface_link %}
-                <a href="{{ repo.app_interface_link }}" target="_blank" class="card-link">
-                    app-interface
-                </a>
-                {% endif %}
+                <ul>
+                    {% for link in repo.links %}
+                    <li>
+                        <a href="{{ link.link_value }}" target="_blank" class="card-link">
+                            {{ link.link_name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
-
-
         </div>
         {% endfor %}
+
     </div>
-
-    <h3>GitLab</h3>
-    <div class="row">
-        {% for repo in repos["gitlab_repos"] %}
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">{{repo.name.upper()}}</div>
-            <div class="card-body">
-
-                <a href="{{ repo.repo_link }}" target="_blank" class="card-link">
-                    GH link
-                </a>
-                <br>
-
-                {% if repo.image_link %}
-
-                <a href="{{ repo.image_link }}" target="_blank" class="card-link">
-                    Quay link
-                </a>
-                <br>
-
-                {% endif %}
-
-
-                {% if repo.confluence_link %}
-                <a href="{{ repo.confluence_link }}" target="_blank" class="card-link">
-                    Docs
-                </a>
-                <br>
-
-                {% endif %}
-            </div>
-
-
-        </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
 
 </div>
 
