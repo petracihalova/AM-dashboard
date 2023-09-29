@@ -4,8 +4,7 @@ import requests
 from flask import render_template, current_app
 
 from github_api import get_open_pull_requests
-from models import Repo
-from utils import load_json_from_file
+from utils import load_json_from_file, create_pull_requests, create_deployments
 
 
 def overview():
@@ -23,7 +22,7 @@ def deployments():
     request_exceptions = (
         requests.exceptions.HTTPError,
         requests.exceptions.ReadTimeout,
-        requests.exceptions.ConnectionError
+        requests.exceptions.ConnectionError,
     )
 
     try:
@@ -34,24 +33,19 @@ def deployments():
         err_message = f"{type(err).__name__}: {err}"
         current_app.logger.error(err_message)
         return render_template("errors/error.html", error_msg=err_message)
- 
 
-    data = response.json()
-
-    deployments_list = []
-    for item in data:
-        deployments_list.append(Repo(**item))
-
-    deployments_list = sorted(deployments_list, key=lambda x: x.name)
+    deployments_list = create_deployments(response.json())
 
     authors = set()
     for repo in deployments_list:
         if not repo.list_of_pr:
             continue
-        for pr in repo.list_of_pr:
-            authors.add(pr["pr_author"])
+        for pull_request in repo.list_of_pr:
+            authors.add(pull_request.pr_author)
 
-    return render_template("deployments.html", deployments=deployments_list, authors=authors)
+    return render_template(
+        "deployments.html", deployments=deployments_list, authors=authors
+    )
 
 
 def open_pr():
@@ -91,7 +85,7 @@ def release_notes(id):
         resource_data = None
 
     additional_data = ""
-    
+
     repozitory_data = load_json_from_file("repos.json")
     if not repozitory_data:
         error_msg = "No data to display."
