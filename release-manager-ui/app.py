@@ -20,12 +20,13 @@ app = create_app()
 
 # Error Middleware
 
+
 @app.errorhandler(Exception)
-def server_error(err):
-    '''
+def handle_error(err):
+    """
     Catch and handle all unhandled and raised exceptions.
 
     Unhandled exception = not catched by try + except block.
-    '''
-    app.logger.exception(err) # log the traceback
-    return render_template("errors/error.html", error_msg="")  
+    """
+    app.logger.exception(err)  # log the traceback
+    return render_template("errors/error.html", error_msg="")
