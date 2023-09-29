@@ -63,7 +63,7 @@ def open_pr():
         if not pr_list:
             continue
         for pr in pr_list:
-            authors.add(pr["user"]["login"])
+            authors.add(pr["user_login"])
 
     return render_template("open_pr.html", gh_pr=open_pr_list, authors=authors)
 
