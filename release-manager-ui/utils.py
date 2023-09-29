@@ -57,3 +57,10 @@ def create_deployments(deployments_data):
         deployments_list.append(deployment)
 
     return sorted(deployments_list, key=lambda x: x.name)
+
+
+def get_pr_authors_from_deployments(pr_list):
+    authors = set()
+    for pr in pr_list:
+        authors.add(pr.pr_author)
+    return authors
