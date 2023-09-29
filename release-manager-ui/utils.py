@@ -1,5 +1,6 @@
 import json
 from flask import current_app
+import os
 
 from models import Repo, PR, JiraTicket
 
@@ -23,6 +24,10 @@ def save_json_to_file(data, filename):
     with open(DEFAULT_PATH + filename, "w", encoding="utf-8") as file:
         json.dump(data, file, indent=4)
     current_app.logger.info(f"JSON data saved to '{DEFAULT_PATH + filename}'")
+
+
+def file_exists(filename):
+    return os.path.exists(DEFAULT_PATH + filename)
 
 
 def create_pull_requests(pull_requests_data):

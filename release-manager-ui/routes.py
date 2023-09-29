@@ -4,7 +4,7 @@ import requests
 from flask import render_template, current_app
 
 from github_api import get_open_pull_requests
-from utils import load_json_from_file, create_deployments, get_pr_authors_from_deployments
+from utils import load_json_from_file, create_deployments, get_pr_authors_from_deployments, file_exists
 
 
 def overview():
@@ -47,30 +47,21 @@ def deployments():
 
 
 def open_pr():
-    try:
-        with open(
-            "release-manager-ui/data/pull_requests.json", mode="r", encoding="utf-8"
-        ) as file:
-            gh_pull_requests = json.load(file)
-    except FileNotFoundError:
-        try:
-            get_open_pull_requests()
-        except FileNotFoundError:
-            error_msg = "The 'Open PRs' page should display data from 'release-manager-ui/data/repos.json' but the file is not found."
-            return render_template("errors/404.html", error_msg=error_msg)
-        with open(
-            "release-manager-ui/data/pull_requests.json", mode="r", encoding="utf-8"
-        ) as file:
-            gh_pull_requests = json.load(file)
+    if not file_exists("pull_requests.json"):
+        get_open_pull_requests()
+    
+    open_pr_list = load_json_from_file("pull_requests.json")
+    if not open_pr_list:
+        return render_template("errors/error.html", error_msg="")
 
     authors = set()
-    for _, pr_list in gh_pull_requests.items():
+    for _, pr_list in open_pr_list.items():
         if not pr_list:
             continue
         for pr in pr_list:
             authors.add(pr["user"]["login"])
 
-    return render_template("open_pr.html", gh_pr=gh_pull_requests, authors=authors)
+    return render_template("open_pr.html", gh_pr=open_pr_list, authors=authors)
 
 
 def release_notes(id):
