@@ -1,8 +1,10 @@
 import json
 from flask import current_app
 import os
+import re
 
 from models import Repo, PR, JiraTicket
+from config import SERVICES_LINKS
 
 
 def load_json_from_file(file):
@@ -64,3 +66,38 @@ def get_pr_authors_from_deployments(pr_list):
     for pr in pr_list:
         authors.add(pr.pr_author)
     return authors
+
+   
+def compare_gh_links(link_1, link_2):
+    pattern = r"(?:https?://)?(?:www\.)?github\.com/([\w-]+)/([\w-]+)/?"
+
+    match_link_1 = re.search(pattern, link_1)
+    if match_link_1:
+        owner_link_1 = match_link_1.group(1)
+        repo_name_link_1 = match_link_1.group(2)
+
+    match_link_2 = re.search(pattern, link_2)
+    if match_link_2:
+        owner_link_2 = match_link_2.group(1)
+        repo_name_link_2 = match_link_2.group(2)
+    
+    return owner_link_1 == owner_link_2 and repo_name_link_1 == repo_name_link_2
+
+
+def get_links(gh_link):
+    """
+    Find links 
+    """
+    if not file_exists(SERVICES_LINKS):
+        return None
+    
+    repozitory_data = load_json_from_file(SERVICES_LINKS) 
+
+    pattern = r"^(https?://)?(www\.)?github\.com/[\w-]+/[\w-]+/?$"
+    for category in repozitory_data["categories"]:
+        for repo in category["category_repos"]:
+            for link in repo["links"]:
+                if re.match(pattern, link["link_value"]):
+                    if compare_gh_links(link["link_value"], gh_link):
+                        return repo["links"]
+    
