@@ -11,43 +11,11 @@
             Links:
         </h3>
         <ul>
+            {% for link in additional_data %}
             <li>
-                Repo: <a href="{{ data.link }}" target="_blank">{{ data.link.split("/")[-1] }}</a>
+                <a href="{{ link.link_value }}" target="_blank">{{ link.link_name }}</a>
             </li>
-            <li>
-
-                {% if additional_data.image_link is string %}
-                Image: <a href="{{ additional_data.image_link }}" target="_blank">{{
-                    additional_data.image_link.split("/")[-1].split("?")[0] }}</a>
-
-                {% elif additional_data.image_link is iterable %}
-                Image:
-                {% for link in additional_data.image_link %}
-                <a href="{{ link }}" target="_blank">{{
-                    link.split("/")[-1].split("?")[0] }}</a>
-                {% endfor %}
-                {% endif %}
-
-            </li>
-            <li>
-                Docs: <a href="{{ additional_data.confluence_link }}" target="_blank">confluence A&M</a>
-            </li>
-            <li>
-                App-interface: <a href="{{ additional_data.app_interface_link }}" target="_blank">{{
-                    "/".join(additional_data.app_interface_link.split("/")[-4:]) }}</a>
-            </li>
-            <li>
-                Release docs:
-                <a href="https://docs.engineering.redhat.com/x/XbDvFQ" target="_blank">dashboard</a>
-                {% if additional_data.release_process_docs %}
-                &bull;
-                <a href="{{ additional_data.release_process_docs }}" target="_blank"> docs for {{ data.name}}</a>
-                {% endif %}
-                {% if additional_data.release_notes %}
-                &bull;
-                <a href="{{ additional_data.release_notes }}" target="_blank">notes (G drive)</a>
-                {% endif %}
-            </li>
+            {% endfor %}
         </ul>
     </div>
     <div>
