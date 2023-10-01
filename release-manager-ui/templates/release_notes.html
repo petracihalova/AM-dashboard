@@ -34,17 +34,17 @@
             last commit SHA on the {{ data.main_branch }} branch: {{ data.commit_master }}
             {% endif %}
             <div>
-                Production commit: <code> {{ data.commit_production[:7] }} </code>
-                <span id="commit-sha-production" hidden>{{ data.commit_production}}</span>
+                Production commit: <code>{{ data.commit_production[:7] }}</code>
+                <span id="commit-sha-production" hidden>{{ data.commit_production }}</span>
                 <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                    onclick="copyToClipboard('commit-sha-production')">Copy
+                    title="Copy the commit SHA in the Clipboard" onclick="copyToClipboard('commit-sha-production')">⧉
                 </button>
             </div>
             <div>
-                Stage commit: <code> {{ data.commit_stage[:7] }} </code>
-                <span id="commit-sha-stage" hidden>{{ data.commit_stage}}</span>
+                Stage commit: <code>{{ data.commit_stage[:7] }}</code>
+                <span id="commit-sha-stage" hidden>{{ data.commit_stage }}</span>
                 <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                    onclick="copyToClipboard('commit-sha-stage')">Copy
+                    title="Copy the commit SHA in the Clipboard" onclick="copyToClipboard('commit-sha-stage')">⧉
                 </button>
             </div>
 
