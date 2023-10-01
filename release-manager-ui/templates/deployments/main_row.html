@@ -6,7 +6,8 @@
             commit: <code>{{ repo.commit_master[:7] }}</code>
             <span id="{{ repo.id }}-commit-sha-master" hidden>{{ repo.commit_master }}</span>
             <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;" data-id="{{ repo.id }}"
-                    onclick='copyToClipboard(this.dataset.id + "-commit-sha-master")'>Copy
+                title="Copy the commit SHA in the Clipboard"
+                onclick='copyToClipboard(this.dataset.id + "-commit-sha-master")'>⧉
             </button>
         </div>
         branch name:
@@ -17,7 +18,8 @@
             commit: <code>{{ repo.commit_stage[:7] }}</code>
             <span id="{{ repo.id }}-commit-sha-stage" hidden>{{ repo.commit_stage }}</span>
             <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                    onclick='copyToClipboard("{{ repo.id }}-commit-sha-stage")'>Copy
+                title="Copy the commit SHA in the Clipboard"
+                onclick='copyToClipboard("{{ repo.id }}-commit-sha-stage")'>⧉
             </button>
         </div>
 
@@ -30,7 +32,8 @@
             commit: <code>{{ repo.commit_production[:7] }}</code>
             <span id="{{ repo.id }}-commit-sha-prod" hidden>{{ repo.commit_production }}</span>
             <button type="button" class="btn btn-outline-primary btn-xs" style="padding: 0;"
-                    onclick='copyToClipboard("{{ repo.id }}-commit-sha-prod")'>Copy
+                title="Copy the commit SHA in the Clipboard"
+                onclick='copyToClipboard("{{ repo.id }}-commit-sha-prod")'>⧉
             </button>
         </div>
 
