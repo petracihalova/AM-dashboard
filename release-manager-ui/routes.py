@@ -62,10 +62,8 @@ def open_pr():
         return render_template("errors/error.html", error_msg="")
 
     authors = set()
-    for _, pr_list in open_pr_list.items():
-        if not pr_list:
-            continue
-        for pr in pr_list:
+    for repo in open_pr_list.values():
+        for pr in repo:
             authors.add(pr["user_login"])
 
     return render_template("open_pr.html", gh_pr=open_pr_list, authors=authors)
