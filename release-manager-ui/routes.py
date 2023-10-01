@@ -4,7 +4,13 @@ import requests
 from flask import render_template, current_app, request
 
 from github_api import get_open_pull_requests
-from utils import load_json_from_file, create_deployments, get_pr_authors_from_deployments, file_exists, get_links
+from utils import (
+    load_json_from_file,
+    create_deployments,
+    get_pr_authors_from_deployments,
+    file_exists,
+    get_links,
+)
 from config import SERVICES_LINKS, SERVICES_LINKS_EXAMPLE, PULL_REQUEST_LIST
 
 
@@ -56,7 +62,7 @@ def open_pr():
     if not file_exists(PULL_REQUEST_LIST) or reload_data:
         current_app.logger.info("Open PRs - downloading new data.")
         get_open_pull_requests()
-    
+
     open_pr_list = load_json_from_file(PULL_REQUEST_LIST)
     if not open_pr_list:
         return render_template("errors/error.html", error_msg="")
@@ -77,7 +83,7 @@ def release_notes(id):
         resource_data = response.json()
     else:
         resource_data = None
-                    
+
     links = get_links(resource_data["link"].lower())
 
     return render_template(

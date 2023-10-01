@@ -64,14 +64,16 @@ def get_open_pull_requests():
                 else:
                     open_pr_list = []
                     for pr in json_data:
-                        open_pr_list.append({
-                            "number": pr["number"],
-                            "draft": pr["draft"],
-                            "title": pr["title"],
-                            "created_at": pr["created_at"],
-                            "user_login": pr["user"]["login"],
-                            "html_url": pr["html_url"]
-                        })
+                        open_pr_list.append(
+                            {
+                                "number": pr["number"],
+                                "draft": pr["draft"],
+                                "title": pr["title"],
+                                "created_at": pr["created_at"],
+                                "user_login": pr["user"]["login"],
+                                "html_url": pr["html_url"],
+                            }
+                        )
 
                     pull_requests[repo_name] = open_pr_list
 
