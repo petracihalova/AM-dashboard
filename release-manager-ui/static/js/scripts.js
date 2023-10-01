@@ -74,6 +74,7 @@ toggleButton.addEventListener("click", function () {
 
 var updateButton = document.getElementById("update_button");
 
+// Open PRs page - Update button
 // Function to set Update button text to "Loading" and get the spinner visible
 function setLoadingState() {
   updateButton.textContent = "";
