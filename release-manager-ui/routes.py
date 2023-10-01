@@ -1,7 +1,7 @@
 import json
 
 import requests
-from flask import render_template, current_app
+from flask import render_template, current_app, request
 
 from github_api import get_open_pull_requests
 from utils import load_json_from_file, create_deployments, get_pr_authors_from_deployments, file_exists
@@ -51,7 +51,10 @@ def deployments():
 
 
 def open_pr():
-    if not file_exists(PULL_REQUEST_LIST):
+    reload_data = True if request.args.get("reload_data") == "true" else False
+
+    if not file_exists(PULL_REQUEST_LIST) or reload_data:
+        current_app.logger.info("Open PRs - downloading new data.")
         get_open_pull_requests()
     
     open_pr_list = load_json_from_file(PULL_REQUEST_LIST)

@@ -6,6 +6,10 @@
 <div class="container-fluid">
     <h1 class="mt-4">Open PRs</h1>
     <br>
+    <button id="update_button" type="button" class="btn btn-outline-primary" style="display: inline-flex; align-items: center; width: 120px; margin-bottom: 20px;">
+        Update data
+    </button>
+    <br>
 
     Select PR author:
     {% include "includes/dropdown_names.html" %}
@@ -23,7 +27,7 @@
         {% for pr in prs %}
         <li>
             {% if pr.draft %}
-                [draft]
+            [draft]
             {% endif %}
 
             <a href="{{ pr.html_url }}" target="_blank">PR#{{ pr.number }}</a>
