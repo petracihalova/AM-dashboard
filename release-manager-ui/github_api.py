@@ -21,13 +21,12 @@ def get_github_repos_links(json_data):
 def get_open_pull_requests():
     if not file_exists(config.SERVICES_LINKS):
         current_app.logger.warning(f"File '{config.SERVICES_LINKS}' doesn't exist.")
-        error_msg = "The list of repos not found. No data to display."
-        return render_template("errors/404.html", error_msg=error_msg)
+        abort(500)
 
     json_data = load_json_from_file(config.SERVICES_LINKS)
     if not json_data:
         current_app.logger.warning(f"No data found in the '{config.SERVICES_LINKS}'")
-        return render_template("errors/error.html", error_msg="")
+        abort(500)
 
     github_links = get_github_repos_links(json_data)
 
