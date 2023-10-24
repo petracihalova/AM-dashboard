@@ -24,6 +24,12 @@ class PR:
 
 
 @dataclass
+class ReleaseInterval:
+    fromTarget: str
+    toTarget: str 
+
+
+@dataclass
 class Repo:
     id: str
     name: str
@@ -48,3 +54,4 @@ class Repo:
     production_build_status: bool = False
     stage_build_link: str = ""
     production_build_link: str = ""
+    release_intervals: List[ReleaseInterval] = field(default_factory=list)
