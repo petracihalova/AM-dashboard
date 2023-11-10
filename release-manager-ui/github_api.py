@@ -8,7 +8,7 @@ from utils import load_json_from_file, save_json_to_file, file_exists
 import config
 
 
-BEFORE_10_DAYS = datetime.today() - timedelta(days=10)
+BEFORE_14_DAYS = datetime.today() - timedelta(days=14)
 
 
 def get_github_repos_links(json_data):
@@ -129,13 +129,6 @@ def get_merged_pull_requests():
             "Authorization": f"Bearer {gh_token}",
         }
 
-        
-
-        # merged_at = datetime.strptime(merged_at_str, "%Y-%m-%dT%H:%M:%SZ")
-        # print(merged_at.date())
-
-        # print("dnes je později než merged_at", TODAY > merged_at)
-
         try:
             current_app.logger.info(f"Merged PRs: Request to GitHub API, url: {url}")
             response = requests.get(url, params=params, headers=headers)
@@ -149,13 +142,13 @@ def get_merged_pull_requests():
                 if not json_data:
                     pull_requests[repo_name] = []
                 else:
-                    open_pr_list = []
+                    merged_pr_list = []
                     for pr in json_data:
                         if not pr["merged_at"]:
                             continue
                         merged_at_as_datetime = datetime.strptime(pr["merged_at"], "%Y-%m-%dT%H:%M:%SZ")
-                        if BEFORE_10_DAYS < merged_at_as_datetime:
-                            open_pr_list.append(
+                        if BEFORE_14_DAYS < merged_at_as_datetime:
+                            merged_pr_list.append(
                                 {
                                     "number": pr["number"],
                                     "title": pr["title"],
@@ -165,7 +158,7 @@ def get_merged_pull_requests():
                                 }
                             )
 
-                    pull_requests[repo_name] = open_pr_list
+                    pull_requests[repo_name] = merged_pr_list
 
             elif response.status_code == 401:
                 current_app.logger.error("401 Unauthorized - check the GitHub token.")
