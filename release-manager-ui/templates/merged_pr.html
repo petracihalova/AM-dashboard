@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+    <h1 class="mt-4">Merged PRs</h1>
+    <br>
+    <button id="update_button_merged_pr" type="button" class="btn btn-outline-primary" style="display: inline-flex; align-items: center; width: 120px; margin-bottom: 20px;">
+        Update data
+    </button>
+    <br>
+
+    Select PR author:
+    {% include "includes/dropdown_names.html" %}
+    <br>
+    <br>
+
+    {% for repo, prs in gh_pr.items() %}
+    <p style="font-weight: bold;">
+        {{ repo.upper() }}
+    </p>
+
+    {% if prs %}
+
+    <ul id="pr_list">
+        {% for pr in prs %}
+        <li>
+            {% if pr.draft %}
+            [draft]
+            {% endif %}
+
+            <a href="{{ pr.html_url }}" target="_blank">PR#{{ pr.number }}</a>
+
+            {{ pr.title }}
+            ({{ pr.user_login}})
+            merged at {{ pr.merged_at}}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% endfor %}
+
+</div>
+
+<!-- JavaScript -->
+<script src="{{ url_for('static', filename='js/merged_pr.js') }}"></script>
+
+{% endblock %}
