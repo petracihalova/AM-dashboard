@@ -11,6 +11,7 @@ def create_app():
     app.add_url_rule("/deployments", view_func=routes.deployments)
     app.add_url_rule("/open_pr", view_func=routes.open_pr)
     app.add_url_rule("/release_notes/<id>", view_func=routes.release_notes)
+    app.add_url_rule("/merged_pr", view_func=routes.merged_pr)
 
     return app
 

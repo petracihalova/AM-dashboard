@@ -3,7 +3,7 @@ import re
 import requests
 from flask import render_template, current_app, request
 
-from github_api import get_open_pull_requests
+from github_api import get_open_pull_requests, get_merged_pull_requests
 from utils import (
     load_json_from_file,
     create_deployments,
@@ -11,7 +11,12 @@ from utils import (
     file_exists,
     get_links,
 )
-from config import SERVICES_LINKS, SERVICES_LINKS_EXAMPLE, PULL_REQUEST_LIST
+from config import (
+    SERVICES_LINKS, 
+    SERVICES_LINKS_EXAMPLE, 
+    PULL_REQUEST_LIST, 
+    MERGED_PULL_REQUEST_LIST
+)
 
 
 def overview():
@@ -89,3 +94,21 @@ def release_notes(id):
     return render_template(
         "release_notes.html", data=resource_data, additional_data=links
     )
+
+
+def merged_pr():
+    reload_data = True if request.args.get("reload_data") == "true" else False
+
+    if not file_exists(MERGED_PULL_REQUEST_LIST) or reload_data:
+        current_app.logger.info("Merged PRs - downloading new data.")
+        get_merged_pull_requests()
+
+    open_pr_list = load_json_from_file(MERGED_PULL_REQUEST_LIST)
+    if not open_pr_list:
+        return render_template("errors/error.html", error_msg="")
+
+    authors = set()
+    for repo in open_pr_list.values():
+        for pr in repo:
+            authors.add(pr["user_login"])
+    return render_template("merged_pr.html", gh_pr=open_pr_list, authors=authors)

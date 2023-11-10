@@ -1,9 +1,14 @@
 import requests
 import re
 from flask import current_app, render_template, abort
+from datetime import datetime, timedelta
+
 
 from utils import load_json_from_file, save_json_to_file, file_exists
 import config
+
+
+BEFORE_10_DAYS = datetime.today() - timedelta(days=10)
 
 
 def get_github_repos_links(json_data):
@@ -92,3 +97,88 @@ def get_open_pull_requests():
             abort(500)
 
     save_json_to_file(pull_requests, config.PULL_REQUEST_LIST)
+
+def get_merged_pull_requests():
+    if not file_exists(config.SERVICES_LINKS):
+        current_app.logger.warning(f"File '{config.SERVICES_LINKS}' doesn't exist.")
+        abort(500)
+
+    json_data = load_json_from_file(config.SERVICES_LINKS)
+    if not json_data:
+        current_app.logger.warning(f"No data found in the '{config.SERVICES_LINKS}'")
+        abort(500)
+
+    github_links = get_github_repos_links(json_data)
+
+    pull_requests = {}
+    pattern = r"(?:https?://)?(?:www\.)?github\.com/([\w-]+)/([\w-]+)/?"
+
+    for url in github_links:
+        match = re.search(pattern, url)
+        if match:
+            owner = match.group(1)
+            repo_name = match.group(2)
+
+        gh_token = config.GITHUB_TOKEN
+
+        url = f"https://api.github.com/repos/{owner}/{repo_name}/pulls"
+        params = {"state": "closed"}
+
+        headers = {
+            "Accept": "application/vnd.github.v3+json",
+            "Authorization": f"Bearer {gh_token}",
+        }
+
+        
+
+        # merged_at = datetime.strptime(merged_at_str, "%Y-%m-%dT%H:%M:%SZ")
+        # print(merged_at.date())
+
+        # print("dnes je později než merged_at", TODAY > merged_at)
+
+        try:
+            current_app.logger.info(f"Merged PRs: Request to GitHub API, url: {url}")
+            response = requests.get(url, params=params, headers=headers)
+
+            current_app.logger.info(
+                f"Response from GitHub API, status code: {response.status_code}"
+            )
+
+            if response.status_code == 200:
+                json_data = response.json()
+                if not json_data:
+                    pull_requests[repo_name] = []
+                else:
+                    open_pr_list = []
+                    for pr in json_data:
+                        if not pr["merged_at"]:
+                            continue
+                        merged_at_as_datetime = datetime.strptime(pr["merged_at"], "%Y-%m-%dT%H:%M:%SZ")
+                        if BEFORE_10_DAYS < merged_at_as_datetime:
+                            open_pr_list.append(
+                                {
+                                    "number": pr["number"],
+                                    "title": pr["title"],
+                                    "merged_at": pr["merged_at"],
+                                    "user_login": pr["user"]["login"],
+                                    "html_url": pr["html_url"],
+                                }
+                            )
+
+                    pull_requests[repo_name] = open_pr_list
+
+            elif response.status_code == 401:
+                current_app.logger.error("401 Unauthorized - check the GitHub token.")
+                abort(401)
+
+            response.raise_for_status()
+
+        except requests.exceptions.RequestException as err:
+            current_app.logger.error(f"Request Exception: {err}")
+            abort(500)
+
+        except Exception as err:
+            current_app.logger.error(f"An error occurred: {err}")
+            abort(500)
+
+    save_json_to_file(pull_requests, config.MERGED_PULL_REQUEST_LIST)

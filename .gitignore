@@ -3,5 +3,6 @@ __pycache__
 venv/*
 release-manager-ui/data/pull_request_list.json
 release-manager-ui/data/services_links.json
+release-manager-ui/data/merged_pull_request_list.json
 
 .env
